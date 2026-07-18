@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("admins")
+}
+
+model Umkm {
+  id          String    @id @default(cuid())
+  namaUmkm    String    @map("nama_umkm")
+  namaPemilik String    @map("nama_pemilik")
+  whatsapp    String
+  alamat      String
+  deskripsi   String?
+  foto        String?
+  isActive    Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  produk      Produk[]
+
+  @@map("umkms")
+}
+
+model Kategori {
+  id        String   @id @default(cuid())
+  nama      String   @unique
+  icon      String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  produk    Produk[]
+
+  @@map("kategoris")
+}
+
+model Produk {
+  id         String   @id @default(cuid())
+  namaProduk String   @map("nama_produk")
+  slug       String   @unique
+  deskripsi  String?
+  harga      Int
+  foto       String?
+  bestSeller Boolean  @default(false) @map("best_seller")
+  isActive   Boolean  @default(true) @map("is_active")
+  umkmId     String   @map("umkm_id")
+  umkm       Umkm     @relation(fields: [umkmId], references: [id], onDelete: Cascade)
+  kategoriId String   @map("kategori_id")
+  kategori   Kategori @relation(fields: [kategoriId], references: [id])
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@index([umkmId])
+  @@index([kategoriId])
+  @@map("produks")
+}
+
+model Banner {
+  id        String   @id @default(cuid())
+  judul     String
+  subjudul  String?
+  gambar    String
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("banners")
+}
+
+model WebsiteSetting {
+  id           String   @id @default(cuid())
+  namaWebsite  String   @default("Kampung Jajanan RW 06") @map("nama_website")
+  deskripsi    String?
+  alamat       String?
+  whatsapp     String?
+  email        String?
+  maps         String?
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("website_settings")
+}
