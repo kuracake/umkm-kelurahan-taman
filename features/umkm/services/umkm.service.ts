@@ -1,0 +1,26 @@
+import { umkmRepository } from "../repositories/umkm.repository";
+import { umkmSchema, type UmkmInput } from "../schemas/umkm.schema";
+import { uploadImage } from "@/lib/cloudinary";
+
+export const umkmService = {
+  getAll: () => umkmRepository.findAll(),
+  getActive: () => umkmRepository.findActive(),
+  getById: (id: string) => umkmRepository.findById(id),
+
+  create: async (data: UmkmInput, fotoFile?: File) => {
+    const validated = umkmSchema.parse(data);
+
+    let fotoUrl: string | undefined;
+    if (fotoFile && fotoFile.size > 0) {
+      fotoUrl = await uploadImage(fotoFile, "umkm");
+    }
+
+    return umkmRepository.create({ ...validated, foto: fotoUrl });
+  },
+
+  toggleActive: async (id: string, isActive: boolean) => {
+    return umkmRepository.update(id, { isActive } as Partial<UmkmInput>);
+  },
+
+  delete: (id: string) => umkmRepository.delete(id),
+};
