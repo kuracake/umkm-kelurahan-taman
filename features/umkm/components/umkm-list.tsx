@@ -34,7 +34,7 @@ export function UmkmList({ umkms }: { umkms: Umkm[] }) {
           key={umkm.id}
           className="flex items-center gap-4 rounded-lg border border-gray-100 bg-white p-4 shadow-sm"
         >
-          <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
+          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md bg-gray-100">
             {umkm.foto ? (
               <Image
                 src={umkm.foto}
