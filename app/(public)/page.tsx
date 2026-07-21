@@ -4,6 +4,7 @@ import { bannerService } from "@/features/banner/services/banner.service";
 import { produkService } from "@/features/produk/services/produk.service";
 import { kategoriService } from "@/features/kategori/services/kategori.service";
 import { umkmService } from "@/features/umkm/services/umkm.service";
+import { ProductCard } from "@/components/shared/product-card";
 
 export default async function HomePage() {
   const [banners, produks, kategoris, umkms] = await Promise.all([
@@ -17,92 +18,96 @@ export default async function HomePage() {
   const activeBanner = banners[0];
 
   return (
-    <div>
-      <section className="relative flex h-90 items-center justify-center bg-[#2E7D32] text-white">
-        {activeBanner ? (
-          <>
-            <Image
-              src={activeBanner.gambar}
-              alt={activeBanner.judul}
-              fill
-              className="object-cover opacity-40"
-              priority
-            />
-            <div className="relative z-10 max-w-2xl px-4 text-center">
-              <h1 className="text-3xl font-bold sm:text-4xl">{activeBanner.judul}</h1>
-              {activeBanner.subjudul && <p className="mt-3 text-lg">{activeBanner.subjudul}</p>}
-              <Link href="/produk" className="mt-6 inline-block rounded-md bg-white px-6 py-2 font-medium text-[#2E7D32] hover:bg-gray-100">
-                Lihat Produk
-              </Link>
-            </div>
-          </>
-        ) : (
-          <div className="px-4 text-center">
-            <h1 className="text-3xl font-bold sm:text-4xl">Kampung Jajanan RW 06 Wonorejo</h1>
-            <p className="mt-3 text-lg">Temukan jajanan tradisional dari UMKM warga sekitar</p>
-            <Link href="/produk" className="mt-6 inline-block rounded-md bg-white px-6 py-2 font-medium text-[#2E7D32] hover:bg-gray-100">
-              Lihat Produk
-            </Link>
-          </div>
+    <div className="bg-white">
+      {/* Hero */}
+      <section className="relative flex h-75 items-center justify-center overflow-hidden sm:h-105">
+        <div className="absolute inset-0 bg-linear-to-br from-brand to-brand-dark" />
+        {activeBanner && (
+          <Image
+            src={activeBanner.gambar}
+            alt={activeBanner.judul}
+            fill
+            className="object-cover opacity-30"
+            priority
+          />
         )}
+        <div className="relative z-10 max-w-xl px-4 text-center text-white">
+          <h1 className="text-2xl font-bold leading-tight sm:text-4xl">
+            {activeBanner?.judul ?? "Kampung Jajanan RW 06 Wonorejo"}
+          </h1>
+          <p className="mt-3 text-sm text-white/90 sm:text-base">
+            {activeBanner?.subjudul ?? "Jajanan tradisional langsung dari dapur warga sekitar"}
+          </p>
+          <Link
+            href="/produk"
+            className="mt-6 inline-block rounded-full bg-white px-7 py-2.5 text-sm font-bold text-brand shadow-md transition hover:scale-105"
+          >
+            Lihat Semua Produk
+          </Link>
+        </div>
       </section>
 
+      {/* Kategori */}
       {kategoris.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="mb-6 text-xl font-bold text-[#1F2937]">Kategori</h2>
-          <div className="flex flex-wrap gap-3">
+        <section className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
+          <h2 className="mb-5 text-lg font-bold text-gray-800 sm:text-xl">Kategori</h2>
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-5 sm:gap-4">
             {kategoris.map((kategori) => (
-              <Link key={kategori.id} href={`/produk?kategori=${kategori.id}`} className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-[#1F2937] hover:border-[#2E7D32] hover:text-[#2E7D32]">
-                {kategori.nama}
+              <Link
+                key={kategori.id}
+                href={`/produk?kategori=${kategori.id}`}
+                className="card-hover flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-brand-light/40 px-3 py-4 text-center"
+              >
+                <span className="text-2xl">🍢</span>
+                <span className="text-xs font-medium text-gray-700 sm:text-sm">
+                  {kategori.nama}
+                </span>
               </Link>
             ))}
           </div>
         </section>
       )}
 
+      {/* Produk Unggulan */}
       {produkUnggulan.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-12">
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-[#1F2937]">Produk Unggulan</h2>
-            <Link href="/produk" className="text-sm text-[#2E7D32] hover:underline">Lihat Semua</Link>
+        <section className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-gray-800 sm:text-xl">Produk Favorit</h2>
+            <Link href="/produk" className="text-sm font-medium text-brand hover:underline">
+              Lihat Semua →
+            </Link>
           </div>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
             {produkUnggulan.map((produk) => (
-              <Link key={produk.id} href={`/produk/${produk.slug}`} className="group overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition hover:shadow-md">
-                <div className="relative aspect-square bg-gray-100">
-                  {produk.foto ? (
-                    <Image src={produk.foto} alt={produk.namaProduk} fill className="object-cover transition group-hover:scale-105" />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-xs text-gray-400">No Foto</div>
-                  )}
-                </div>
-                <div className="p-3">
-                  <p className="truncate text-sm font-medium text-[#1F2937]">{produk.namaProduk}</p>
-                  <p className="text-sm font-semibold text-[#2E7D32]">Rp{produk.harga.toLocaleString("id-ID")}</p>
-                </div>
-              </Link>
+              <ProductCard key={produk.id} produk={produk} />
             ))}
           </div>
         </section>
       )}
 
+      {/* UMKM */}
       {umkms.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-12">
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-[#1F2937]">UMKM Kami</h2>
-            <Link href="/umkm" className="text-sm text-[#2E7D32] hover:underline">Lihat Semua</Link>
+        <section className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-gray-800 sm:text-xl">UMKM Kami</h2>
+            <Link href="/umkm" className="text-sm font-medium text-brand hover:underline">
+              Lihat Semua →
+            </Link>
           </div>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {umkms.slice(0, 8).map((umkm) => (
-              <div key={umkm.id} className="flex flex-col items-center rounded-lg border border-gray-100 bg-white p-4 text-center shadow-sm">
-                <div className="relative mb-2 h-16 w-16 overflow-hidden rounded-full bg-gray-100">
+              <div
+                key={umkm.id}
+                className="card-hover flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)]"
+              >
+                <div className="relative h-14 w-14 overflow-hidden rounded-full bg-brand-light sm:h-16 sm:w-16">
                   {umkm.foto ? (
                     <Image src={umkm.foto} alt={umkm.namaUmkm} fill className="object-cover" />
                   ) : (
-                    <div className="flex h-full items-center justify-center text-xs text-gray-400">🏪</div>
+                    <div className="flex h-full items-center justify-center text-xl">🏪</div>
                   )}
                 </div>
-                <p className="text-sm font-medium text-[#1F2937]">{umkm.namaUmkm}</p>
+                <p className="text-xs font-medium text-gray-700 sm:text-sm">{umkm.namaUmkm}</p>
               </div>
             ))}
           </div>
