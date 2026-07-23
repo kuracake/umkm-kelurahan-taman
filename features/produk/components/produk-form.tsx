@@ -99,7 +99,7 @@ export function ProdukForm({
           <option value="">Pilih Kategori</option>
           {kategoris.map((kategori) => (
             <option key={kategori.id} value={kategori.id}>
-              {kategori.nama}
+              {kategori.icon ? `${kategori.icon} ${kategori.nama}` : kategori.nama}
             </option>
           ))}
         </select>

@@ -1,38 +1,29 @@
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
+const KATEGORI_TETAP = [
+  { nama: "Camilan Kering", icon: "🍘" },
+  { nama: "Gorengan", icon: "🍤" },
+  { nama: "Kue Basah", icon: "🧁" },
+  { nama: "Makanan Berat", icon: "🍛" },
+  { nama: "Minuman", icon: "🥤" },
+];
+
 async function main() {
-  const email = process.env.SEED_ADMIN_EMAIL;
-  const password = process.env.SEED_ADMIN_PASSWORD;
-
-  if (!email || !password) {
-    throw new Error(
-      "SEED_ADMIN_EMAIL dan SEED_ADMIN_PASSWORD wajib diisi di .env"
-    );
+  for (const k of KATEGORI_TETAP) {
+    await prisma.kategori.upsert({
+      where: { nama: k.nama },
+      update: { icon: k.icon },
+      create: k,
+    });
   }
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const admin = await prisma.admin.upsert({
-    where: { email },
-    update: {},
-    create: {
-      name: "Admin RW 06",
-      email,
-      password: hashedPassword,
-    },
-  });
-
-  console.log("Admin berhasil dibuat:", admin.email);
 }
 
 main()
-  .catch((e) => {
+  .then(() => prisma.$disconnect())
+  .catch(async (e) => {
     console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
     await prisma.$disconnect();
+    process.exit(1);
   });

@@ -3,6 +3,28 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { produkService } from "@/features/produk/services/produk.service";
 import { OrderSection } from "@/features/produk/components/order-section";
+import { ProductCard } from "@/components/shared/product-card";
+
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const produk = await produkService.getBySlug(slug);
+
+  if (!produk) return { title: "Produk tidak ditemukan" };
+
+  return {
+    title: `${produk.namaProduk} - ${produk.umkm.namaUmkm}`,
+    description: produk.deskripsi ?? `${produk.namaProduk} dari ${produk.umkm.namaUmkm}, Rp${produk.harga.toLocaleString("id-ID")}`,
+    openGraph: {
+      images: produk.foto ? [produk.foto] : [],
+    },
+  };
+}
 
 export default async function ProdukDetailPage({
   params,
@@ -31,6 +53,7 @@ export default async function ProdukDetailPage({
               src={produk.foto}
               alt={produk.namaProduk}
               fill
+              sizes="(max-width: 768px) 100vw, 500px"
               className="object-cover"
               priority
             />
@@ -44,8 +67,8 @@ export default async function ProdukDetailPage({
         {/* Info */}
         <div>
           {produk.bestSeller && (
-            <span className="mb-2 inline-block rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-700">
-              Best Seller
+            <span className="mb-2 inline-block rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+              Favorit
             </span>
           )}
           <h1 className="text-2xl font-bold text-[#1F2937]">{produk.namaProduk}</h1>
@@ -73,39 +96,10 @@ export default async function ProdukDetailPage({
       {/* Related Products */}
       {related.length > 0 && (
         <section className="mt-16">
-          <h2 className="mb-6 text-xl font-bold text-[#1F2937]">
-            Produk Terkait
-          </h2>
+          <h2 className="mb-6 text-xl font-bold text-[#1F2937]">Produk Terkait</h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {related.map((p) => (
-              <Link
-                key={p.id}
-                href={`/produk/${p.slug}`}
-                className="group overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition hover:shadow-md"
-              >
-                <div className="relative aspect-square bg-gray-100">
-                  {p.foto ? (
-                    <Image
-                      src={p.foto}
-                      alt={p.namaProduk}
-                      fill
-                      className="object-cover transition group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-xs text-gray-400">
-                      No Foto
-                    </div>
-                  )}
-                </div>
-                <div className="p-3">
-                  <p className="truncate text-sm font-medium text-[#1F2937]">
-                    {p.namaProduk}
-                  </p>
-                  <p className="text-sm font-semibold text-[#2E7D32]">
-                    Rp{p.harga.toLocaleString("id-ID")}
-                  </p>
-                </div>
-              </Link>
+              <ProductCard key={p.id} produk={p} />
             ))}
           </div>
         </section>

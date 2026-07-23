@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { Lock, Mail } from "lucide-react";
+import { Navbar } from "@/components/shared/navbar";
+import { BottomNav } from "@/components/shared/bottom-nav";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,50 +37,71 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#F8F9FA] px-4">
-      <div className="w-full max-w-sm rounded-lg bg-white p-8 shadow-md">
-        <h1 className="mb-6 text-center text-2xl font-bold text-[#1F2937]">
-          Login Admin
-        </h1>
+    <div className="flex min-h-screen flex-col">
+      <Navbar namaWebsite="UMKM RW 06 WONOREJO" />
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div>
-            <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
-            />
-          </div>
+      <main className="flex-1 pb-20 sm:pb-0">
+        <div className="mx-auto max-w-sm px-4 py-10 sm:py-16">
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
-            />
+            <h2 className="mb-4 border-b border-gray-100 pb-2 text-sm font-bold uppercase tracking-wide text-gray-500">
+              Login
+            </h2>
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+                  Email
+                </label>
+                <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 focus-within:border-brand focus-within:bg-white">
+                  <Mail size={16} className="text-gray-400" />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    placeholder="admin@email.com"
+                    className="w-full bg-transparent text-sm text-gray-800 outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+                  Password
+                </label>
+                <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 focus-within:border-brand focus-within:bg-white">
+                  <Lock size={16} className="text-gray-400" />
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    placeholder="••••••••"
+                    className="w-full bg-transparent text-sm text-gray-800 outline-none"
+                  />
+                </div>
+              </div>
+
+              {error && (
+                <p className="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600">
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="mt-1 rounded-xl bg-brand py-2.5 text-sm font-bold text-white transition hover:bg-brand-dark disabled:opacity-50"
+              >
+                {loading ? "Memproses..." : "Log in"}
+              </button>
+            </form>
           </div>
+        </div>
+      </main>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="mt-2 rounded-md bg-[#2E7D32] py-2 font-medium text-white hover:bg-[#256428] disabled:opacity-50"
-          >
-            {loading ? "Memproses..." : "Login"}
-          </button>
-        </form>
-      </div>
-    </main>
+      <BottomNav />
+    </div>
   );
 }

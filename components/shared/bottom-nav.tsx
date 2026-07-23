@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, UtensilsCrossed, Store, Phone } from "lucide-react";
+import { Home, UtensilsCrossed, Store, Phone, User } from "lucide-react";
 
 const navItems = [
   { label: "Beranda", href: "/", icon: Home },
   { label: "Produk", href: "/produk", icon: UtensilsCrossed },
   { label: "UMKM", href: "/umkm", icon: Store },
+  { label: "User", href: "/login", icon: User },
   { label: "Kontak", href: "/kontak", icon: Phone },
 ];
 

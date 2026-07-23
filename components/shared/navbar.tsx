@@ -27,7 +27,7 @@ export function Navbar({ namaWebsite }: { namaWebsite: string }) {
       <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
         <Link
           href="/"
-          className="shrink-0 font-[family-name:var(--font-heading)] text-base font-bold text-brand sm:text-lg"
+          className="shrink-0 font-heading text-base font-bold text-brand sm:text-lg"
         >
           {namaWebsite}
         </Link>
@@ -52,15 +52,6 @@ export function Navbar({ namaWebsite }: { namaWebsite: string }) {
             </li>
           ))}
         </ul>
-
-        {/* Ikon search — mobile, buka halaman produk dengan fokus search */}
-        <Link
-          href="/produk"
-          className="ml-auto flex h-9 w-9 items-center justify-center rounded-full bg-brand-light text-brand sm:hidden"
-          aria-label="Cari produk"
-        >
-          <Search size={18} />
-        </Link>
       </div>
     </header>
   );

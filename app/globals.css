@@ -16,7 +16,13 @@
   --color-brand-light: var(--brand-light);
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);
+
+  --color-accent-warm: oklch(72% 0.16 55);   /* aksen oranye jajanan, dipakai untuk badge/CTA sekunder */
+  --color-surface-tint: oklch(97% 0.02 145); /* pengganti bg-brand-light/40 yang flat */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-card: 0 2px 10px -4px oklch(0% 0 0 / 0.08), 0 1px 2px oklch(0% 0 0 / 0.04);
 }
+
 
 body {
   background: var(--background);
