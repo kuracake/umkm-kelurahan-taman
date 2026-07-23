@@ -2,6 +2,8 @@ import { produkService } from "@/features/produk/services/produk.service";
 import { kategoriService } from "@/features/kategori/services/kategori.service";
 import { ProductCard } from "@/components/shared/product-card";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProdukListPage({
   searchParams,
 }: {

@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import { produkService } from "@/features/produk/services/produk.service";
 import { OrderSection } from "@/features/produk/components/order-section";
 import { ProductCard } from "@/components/shared/product-card";
-
 import type { Metadata } from "next";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

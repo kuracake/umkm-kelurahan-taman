@@ -18,6 +18,8 @@ const KATEGORI_ICON: Record<string, string> = {
   "Minuman": "🥤",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [banners, produks, kategoris, umkms] = await Promise.all([
     bannerService.getActive(),

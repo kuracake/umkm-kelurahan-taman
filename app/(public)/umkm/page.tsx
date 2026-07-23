@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { umkmService } from "@/features/umkm/services/umkm.service";
 
+export const dynamic = "force-dynamic";
+
 export default async function UmkmListPage() {
   const umkms = await umkmService.getActive();
 
