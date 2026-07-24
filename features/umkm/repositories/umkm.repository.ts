@@ -18,4 +18,15 @@ export const umkmRepository = {
     prisma.umkm.update({ where: { id }, data }),
 
   delete: (id: string) => prisma.umkm.delete({ where: { id } }),
+
+  findByIdWithProduk: (id: string) =>
+    prisma.umkm.findUnique({
+      where: { id },
+      include: {
+        produk: {
+          where: { isActive: true },
+          include: { kategori: true, umkm: true },
+        },
+      },
+    }),
 };

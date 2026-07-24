@@ -8,8 +8,6 @@ import { ProductCard } from "@/components/shared/product-card";
 import { HeroBanner } from "@/components/shared/hero-banner";
 import { KategoriProdukCarousel } from "@/components/shared/kategori-produk-carousel";
 
-// Peta ikon per kategori — fallback ke 🍽️ kalau nama kategori belum terdaftar.
-// Sesuaikan key-nya dengan nama kategori asli di database.
 const KATEGORI_ICON: Record<string, string> = {
   "Camilan Kering": "🍘",
   "Gorengan": "🍤",

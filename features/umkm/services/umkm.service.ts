@@ -6,6 +6,7 @@ export const umkmService = {
   getAll: () => umkmRepository.findAll(),
   getActive: () => umkmRepository.findActive(),
   getById: (id: string) => umkmRepository.findById(id),
+  getByIdWithProduk: (id: string) => umkmRepository.findByIdWithProduk(id),
 
   create: async (data: UmkmInput, fotoFile?: File) => {
     const validated = umkmSchema.parse(data);
