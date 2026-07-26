@@ -27,7 +27,7 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
   if (banners.length === 0) return null;
 
   return (
-    <section className="relative h-56 w-full overflow-hidden sm:h-80 lg:h-96">
+    <section className="relative aspect-4/3 w-full overflow-hidden sm:aspect-video lg:aspect-21/9">
       {banners.map((banner, i) => (
         <div
           key={banner.id}

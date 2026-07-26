@@ -14,6 +14,7 @@ const KATEGORI_ICON: Record<string, string> = {
   "Kue Basah": "🧁",
   "Makanan Berat": "🍛",
   "Minuman": "🥤",
+  "Lain-lain": "🧺",
 };
 
 export const dynamic = "force-dynamic";
@@ -28,6 +29,12 @@ export default async function HomePage() {
 
   const produkUnggulan = produks.filter((p) => p.bestSeller).slice(0, 6);
 
+  const kategorisSorted = [...kategoris].sort((a, b) => {
+    if (a.nama === "Lain-lain") return 1;
+    if (b.nama === "Lain-lain") return -1;
+    return 0;
+  });
+
   return (
     <div className="bg-white">
       <HeroBanner banners={banners} />
@@ -39,7 +46,7 @@ export default async function HomePage() {
             Kategori
           </h2>
           <div className="grid grid-cols-3 gap-3 sm:grid-cols-5 sm:gap-4">
-            {kategoris.map((kategori) => (
+            {kategorisSorted.map((kategori) => (
               <Link
                 key={kategori.id}
                 href={`/produk?kategori=${kategori.id}`}
@@ -58,7 +65,7 @@ export default async function HomePage() {
       )}
 
       {/* Produk per Kategori */}
-      {kategoris.map((kategori) => {
+      {kategorisSorted.map((kategori) => {
         const produkKategori = produks.filter((p) => p.kategoriId === kategori.id);
         return (
           <KategoriProdukCarousel
