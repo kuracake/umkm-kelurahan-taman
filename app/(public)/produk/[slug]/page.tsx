@@ -5,6 +5,7 @@ import { produkService } from "@/features/produk/services/produk.service";
 import { OrderSection } from "@/features/produk/components/order-section";
 import { ProductCard } from "@/components/shared/product-card";
 import type { Metadata } from "next";
+import { ArrowLeft } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -45,8 +46,16 @@ export default async function ProdukDetailPage({
     .slice(0, 4);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="mx-auto max-w-4xl px-4 py-12">
+        <Link
+          href="/produk"
+          className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition hover:text-brand"
+        >
+          <ArrowLeft size={16} />
+          Kembali
+        </Link>
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Foto */}
         <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
           {produk.foto ? (

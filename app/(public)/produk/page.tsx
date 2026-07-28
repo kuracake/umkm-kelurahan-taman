@@ -23,7 +23,10 @@ export default async function ProdukListPage({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
-      <h1 className="mb-6 text-xl font-bold text-gray-800 sm:text-2xl">Semua Produk</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">Semua Produk</h1>
+        <p className="text-sm text-gray-500">{filtered.length} produk</p>
+      </div>
 
       <form className="mb-8 flex flex-col gap-3 sm:flex-row">
         <input
@@ -31,12 +34,12 @@ export default async function ProdukListPage({
           name="q"
           defaultValue={q}
           placeholder="Cari produk..."
-          className="flex-1 rounded-full border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-brand focus:bg-white focus:outline-none"
+          className="flex-1 rounded-full border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-800 focus:border-brand focus:bg-white focus:outline-none"
         />
         <select
           name="kategori"
           defaultValue={kategori ?? ""}
-          className="rounded-full border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-brand focus:bg-white focus:outline-none"
+          className="rounded-full border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-800 focus:border-brand focus:bg-white focus:outline-none"
         >
           <option value="">Semua Kategori</option>
           {kategoris.map((kat) => (
@@ -45,16 +48,19 @@ export default async function ProdukListPage({
         </select>
         <button
           type="submit"
-          className="rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white transition hover:bg-brand-dark"
+          className="shrink-0 rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white transition hover:bg-brand-dark"
         >
           Cari
         </button>
       </form>
 
       {filtered.length === 0 ? (
-        <p className="py-16 text-center text-gray-500">Tidak ada produk ditemukan.</p>
+        <div className="flex flex-col items-center gap-2 py-16 text-center">
+          <span className="text-3xl">🔍</span>
+          <p className="text-gray-500">Tidak ada produk ditemukan.</p>
+        </div>
       ) : (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
           {filtered.map((produk) => (
             <ProductCard key={produk.id} produk={produk} />
           ))}

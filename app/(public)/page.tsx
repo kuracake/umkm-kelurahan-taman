@@ -14,7 +14,7 @@ const KATEGORI_ICON: Record<string, string> = {
   "Kue Basah": "🧁",
   "Makanan Berat": "🍛",
   "Minuman": "🥤",
-  "Lain-lain": "🧺",
+  "Lain-lain": "🛒",
 };
 
 export const dynamic = "force-dynamic";
