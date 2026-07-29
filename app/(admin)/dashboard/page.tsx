@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
 export default async function DashboardPage() {
@@ -15,6 +17,14 @@ export default async function DashboardPage() {
 
   return (
     <div>
+      <Link
+        href="/"
+        className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition hover:text-brand"
+      >
+        <ArrowLeft size={16} />
+        Kembali ke Beranda
+      </Link>
+
       <h1 className="mb-6 text-2xl font-bold text-[#1F2937]">Dashboard</h1>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
