@@ -55,21 +55,31 @@ export default async function ProdukDetailPage({
           Kembali
         </Link>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {/* Foto */}
-        <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
-          {produk.foto ? (
-            <Image
-              src={produk.foto}
-              alt={produk.namaProduk}
-              fill
-              sizes="(max-width: 768px) 100vw, 500px"
-              className="object-cover"
-              priority
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center text-gray-400">
-              No Foto
+        <div>
+          <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
+            {produk.foto ? (
+              <Image
+                src={produk.foto}
+                alt={produk.namaProduk}
+                fill
+                sizes="(max-width: 768px) 100vw, 500px"
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center text-gray-400">
+                No Foto
+              </div>
+            )}
+          </div>
+
+          {produk.fotoTambahan.length > 0 && (
+            <div className="mt-3 grid grid-cols-4 gap-2">
+              {produk.fotoTambahan.map((url, i) => (
+                <div key={i} className="relative aspect-square overflow-hidden rounded-md bg-gray-100">
+                  <Image src={url} alt={`${produk.namaProduk} ${i + 2}`} fill className="object-cover" />
+                </div>
+              ))}
             </div>
           )}
         </div>

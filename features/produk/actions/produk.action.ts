@@ -15,8 +15,9 @@ export async function createProdukAction(formData: FormData) {
     };
 
     const fotoFile = formData.get("foto") as File;
+    const fotoTambahanFiles = formData.getAll("fotoTambahan") as File[];
 
-    await produkService.create(data, fotoFile);
+    await produkService.create(data, fotoFile, fotoTambahanFiles);
     revalidatePath("/dashboard/produk");
     return { success: true };
   } catch (error) {
@@ -47,8 +48,9 @@ export async function updateProdukAction(id: string, formData: FormData) {
     };
 
     const fotoFile = formData.get("foto") as File;
+    const fotoTambahanFiles = formData.getAll("fotoTambahan") as File[];
 
-    await produkService.update(id, data, fotoFile);
+    await produkService.update(id, data, fotoFile, fotoTambahanFiles);
     revalidatePath("/dashboard/produk");
     return { success: true };
   } catch (error) {

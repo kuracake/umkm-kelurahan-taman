@@ -27,10 +27,10 @@ export const produkRepository = {
       select: { slug: true },
     }),
 
-  create: (data: ProdukInput & { slug: string; foto?: string }) =>
+  create: (data: ProdukInput & { slug: string; foto?: string; fotoTambahan?: string[] }) =>
     prisma.produk.create({ data }),
 
-  update: (id: string, data: Partial<ProdukInput> & { foto?: string }) =>
+  update: (id: string, data: Partial<ProdukInput> & { foto?: string; fotoTambahan?: string[] }) =>
     prisma.produk.update({ where: { id }, data }),
 
   delete: (id: string) => prisma.produk.delete({ where: { id } }),

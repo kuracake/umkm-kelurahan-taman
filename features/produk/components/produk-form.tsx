@@ -112,15 +112,23 @@ export function ProdukForm({
 
       <div>
         <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Foto Produk
+          Foto Utama
         </label>
         <input name="foto" type="file" accept="image/*" className="w-full text-sm" />
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-[#1F2937]">
-        <input name="bestSeller" type="checkbox" />
-        Tandai sebagai Best Seller
-      </label>
+      <div>
+        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+          Foto Tambahan (opsional, bisa pilih beberapa sekaligus)
+        </label>
+        <input
+          name="fotoTambahan"
+          type="file"
+          accept="image/*"
+          multiple
+          className="w-full text-sm"
+        />
+      </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 

@@ -52,6 +52,7 @@ model Produk {
   deskripsi  String?
   harga      Int
   foto       String?
+  fotoTambahan String[] @default([]) @map("foto_tambahan")
   bestSeller Boolean  @default(false) @map("best_seller")
   isActive   Boolean  @default(true) @map("is_active")
   umkmId     String   @map("umkm_id")

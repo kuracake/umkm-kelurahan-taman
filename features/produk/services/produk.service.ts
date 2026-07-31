@@ -27,7 +27,7 @@ export const produkService = {
   getActive: () => produkRepository.findActive(),
   getBySlug: (slug: string) => produkRepository.findBySlug(slug),
 
-  create: async (data: ProdukRawInput, fotoFile?: File) => {
+  create: async (data: ProdukRawInput, fotoFile?: File, fotoTambahanFiles?: File[]) => {
     const validated = produkSchema.parse(data);
     const slug = await generateUniqueSlug(validated.namaProduk);
 
@@ -36,7 +36,20 @@ export const produkService = {
       fotoUrl = await uploadImage(fotoFile, "produk");
     }
 
-    return produkRepository.create({ ...validated, slug, foto: fotoUrl });
+    let fotoTambahanUrls: string[] = [];
+    if (fotoTambahanFiles && fotoTambahanFiles.length > 0) {
+      const uploads = fotoTambahanFiles
+        .filter((f) => f.size > 0)
+        .map((f) => uploadImage(f, "produk"));
+      fotoTambahanUrls = await Promise.all(uploads);
+    }
+
+    return produkRepository.create({
+      ...validated,
+      slug,
+      foto: fotoUrl,
+      fotoTambahan: fotoTambahanUrls,
+    });
   },
 
   getById: (id: string) =>
@@ -45,16 +58,28 @@ export const produkService = {
     include: { umkm: true, kategori: true },
   }),
 
-update: async (id: string, data: ProdukRawInput, fotoFile?: File) => {
-  const validated = produkSchema.parse(data);
+  update: async (id: string, data: ProdukRawInput, fotoFile?: File, fotoTambahanFiles?: File[]) => {
+    const validated = produkSchema.parse(data);
 
-  let fotoUrl: string | undefined;
-  if (fotoFile && fotoFile.size > 0) {
-    fotoUrl = await uploadImage(fotoFile, "produk");
-  }
+    let fotoUrl: string | undefined;
+    if (fotoFile && fotoFile.size > 0) {
+      fotoUrl = await uploadImage(fotoFile, "produk");
+    }
 
-  return produkRepository.update(id, { ...validated, ...(fotoUrl && { foto: fotoUrl }) });
-},
+    let fotoTambahanUrls: string[] | undefined;
+    if (fotoTambahanFiles && fotoTambahanFiles.length > 0) {
+      const uploads = fotoTambahanFiles
+        .filter((f) => f.size > 0)
+        .map((f) => uploadImage(f, "produk"));
+      fotoTambahanUrls = await Promise.all(uploads);
+    }
+
+    return produkRepository.update(id, {
+      ...validated,
+      ...(fotoUrl && { foto: fotoUrl }),
+      ...(fotoTambahanUrls && { fotoTambahan: fotoTambahanUrls }),
+    });
+  },
 
   toggleActive: (id: string, isActive: boolean) =>
     produkRepository.update(id, { isActive } as Partial<ProdukInput> & { isActive: boolean }),

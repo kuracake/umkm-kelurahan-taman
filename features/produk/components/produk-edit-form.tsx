@@ -59,7 +59,7 @@ export function ProdukEditForm({
 
       <div>
         <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-            Harga (Rp)
+          Harga (Rp)
         </label>
         <CurrencyInput name="harga" defaultValue={produk.harga} required />
       </div>
@@ -114,7 +114,7 @@ export function ProdukEditForm({
 
       <div>
         <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Foto Saat Ini
+          Foto Utama Saat Ini
         </label>
         {produk.foto ? (
           <div className="relative mb-2 h-24 w-24 overflow-hidden rounded-md bg-gray-100">
@@ -124,9 +124,36 @@ export function ProdukEditForm({
           <p className="mb-2 text-xs text-gray-400">Belum ada foto</p>
         )}
         <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Ganti Foto (opsional, kosongkan jika tidak ingin ganti)
+          Ganti Foto Utama (opsional, kosongkan jika tidak ingin ganti)
         </label>
         <input name="foto" type="file" accept="image/*" className="w-full text-sm" />
+      </div>
+
+      <div>
+        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+          Foto Tambahan Saat Ini
+        </label>
+        {produk.fotoTambahan.length > 0 ? (
+          <div className="mb-2 grid grid-cols-4 gap-2">
+            {produk.fotoTambahan.map((url, i) => (
+              <div key={i} className="relative h-16 w-16 overflow-hidden rounded-md bg-gray-100">
+                <Image src={url} alt={`Foto tambahan ${i + 1}`} fill className="object-cover" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="mb-2 text-xs text-gray-400">Belum ada foto tambahan</p>
+        )}
+        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+          Ganti Foto Tambahan (opsional, pilih beberapa sekaligus — akan menggantikan semua foto tambahan lama)
+        </label>
+        <input
+          name="fotoTambahan"
+          type="file"
+          accept="image/*"
+          multiple
+          className="w-full text-sm"
+        />
       </div>
 
       <label className="flex items-center gap-2 text-sm text-[#1F2937]">
