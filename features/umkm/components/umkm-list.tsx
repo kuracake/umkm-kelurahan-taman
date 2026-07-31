@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { deleteUmkmAction, toggleUmkmActiveAction } from "../actions/umkm.action";
 import type { Umkm } from "@prisma/client";
+import Link from "next/link";
+
 
 export function UmkmList({ umkms }: { umkms: Umkm[] }) {
   const router = useRouter();
@@ -66,12 +68,20 @@ export function UmkmList({ umkms }: { umkms: Umkm[] }) {
             >
               {umkm.isActive ? "Aktif" : "Nonaktif"}
             </button>
-            <button
-              onClick={() => handleDelete(umkm.id)}
-              className="text-sm text-red-600 hover:underline"
-            >
-              Hapus
-            </button>
+            <div className="flex gap-3">
+              <Link
+                href={`/dashboard/umkm/${umkm.id}/edit`}
+                className="text-sm text-brand hover:underline"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={() => handleDelete(umkm.id)}
+                className="text-sm text-red-600 hover:underline"
+              >
+                Hapus
+              </button>
+            </div>
           </div>
         </div>
       ))}

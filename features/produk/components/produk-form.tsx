@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createProdukAction } from "../actions/produk.action";
 import type { Umkm, Kategori } from "@prisma/client";
+import { CurrencyInput } from "@/components/shared/currency-input";
 
 export function ProdukForm({
   umkms,
@@ -59,14 +60,7 @@ export function ProdukForm({
         <label className="mb-1 block text-sm font-medium text-[#1F2937]">
           Harga (Rp)
         </label>
-        <input
-          name="harga"
-          type="number"
-          required
-          min="0"
-          placeholder="5000"
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
-        />
+        <CurrencyInput name="harga" required />
       </div>
 
       <div>

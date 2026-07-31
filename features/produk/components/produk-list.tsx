@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { deleteProdukAction, toggleProdukActiveAction } from "../actions/produk.action";
 import type { Produk, Umkm, Kategori } from "@prisma/client";
+import Link from "next/link";
 
 type ProdukWithRelations = Produk & { umkm: Umkm; kategori: Kategori };
 
@@ -74,12 +75,20 @@ export function ProdukList({ produks }: { produks: ProdukWithRelations[] }) {
             >
               {produk.isActive ? "Aktif" : "Nonaktif"}
             </button>
-            <button
-              onClick={() => handleDelete(produk.id)}
-              className="text-sm text-red-600 hover:underline"
-            >
-              Hapus
-            </button>
+            <div className="flex gap-3">
+              <Link
+                href={`/dashboard/produk/${produk.id}/edit`}
+                className="text-sm text-brand hover:underline"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={() => handleDelete(produk.id)}
+                className="text-sm text-red-600 hover:underline"
+              >
+                Hapus
+              </button>
+            </div>
           </div>
         </div>
       ))}

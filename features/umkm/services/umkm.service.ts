@@ -19,6 +19,17 @@ export const umkmService = {
     return umkmRepository.create({ ...validated, foto: fotoUrl });
   },
 
+  update: async (id: string, data: UmkmInput, fotoFile?: File) => {
+    const validated = umkmSchema.parse(data);
+
+    let fotoUrl: string | undefined;
+    if (fotoFile && fotoFile.size > 0) {
+      fotoUrl = await uploadImage(fotoFile, "umkm");
+    }
+
+    return umkmRepository.update(id, { ...validated, ...(fotoUrl && { foto: fotoUrl }) });
+  },
+
   toggleActive: async (id: string, isActive: boolean) => {
     return umkmRepository.update(id, { isActive } as Partial<UmkmInput>);
   },

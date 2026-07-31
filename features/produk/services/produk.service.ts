@@ -2,6 +2,7 @@ import { produkRepository } from "../repositories/produk.repository";
 import { produkSchema, type ProdukInput, type ProdukRawInput } from "../schemas/produk.schema";
 import { generateSlug } from "@/lib/slug";
 import { uploadImage } from "@/lib/cloudinary";
+import { prisma } from "@/lib/prisma";
 
 async function generateUniqueSlug(namaProduk: string): Promise<string> {
   const baseSlug = generateSlug(namaProduk);
@@ -37,6 +38,23 @@ export const produkService = {
 
     return produkRepository.create({ ...validated, slug, foto: fotoUrl });
   },
+
+  getById: (id: string) =>
+  prisma.produk.findUnique({
+    where: { id },
+    include: { umkm: true, kategori: true },
+  }),
+
+update: async (id: string, data: ProdukRawInput, fotoFile?: File) => {
+  const validated = produkSchema.parse(data);
+
+  let fotoUrl: string | undefined;
+  if (fotoFile && fotoFile.size > 0) {
+    fotoUrl = await uploadImage(fotoFile, "produk");
+  }
+
+  return produkRepository.update(id, { ...validated, ...(fotoUrl && { foto: fotoUrl }) });
+},
 
   toggleActive: (id: string, isActive: boolean) =>
     produkRepository.update(id, { isActive } as Partial<ProdukInput> & { isActive: boolean }),

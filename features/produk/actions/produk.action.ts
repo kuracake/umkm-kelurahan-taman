@@ -35,6 +35,28 @@ export async function toggleProdukActiveAction(id: string, isActive: boolean) {
   }
 }
 
+export async function updateProdukAction(id: string, formData: FormData) {
+  try {
+    const data = {
+      namaProduk: formData.get("namaProduk") as string,
+      deskripsi: (formData.get("deskripsi") as string) || undefined,
+      harga: formData.get("harga") as string,
+      bestSeller: formData.get("bestSeller") === "on",
+      umkmId: formData.get("umkmId") as string,
+      kategoriId: formData.get("kategoriId") as string,
+    };
+
+    const fotoFile = formData.get("foto") as File;
+
+    await produkService.update(id, data, fotoFile);
+    revalidatePath("/dashboard/produk");
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: "Gagal mengubah produk" };
+  }
+}
+
 export async function deleteProdukAction(id: string) {
   try {
     await produkService.delete(id);
