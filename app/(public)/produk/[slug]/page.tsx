@@ -46,15 +46,17 @@ export default async function ProdukDetailPage({
     .slice(0, 4);
 
   return (
-        <div className="mx-auto max-w-4xl px-4 py-12">
-        <Link
-          href="/produk"
-          className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition hover:text-brand"
-        >
-          <ArrowLeft size={16} />
-          Kembali
-        </Link>
+    <div className="mx-auto max-w-4xl px-4 py-12">
+      <Link
+        href="/produk"
+        className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition hover:text-brand"
+      >
+        <ArrowLeft size={16} />
+        Kembali
+      </Link>
 
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        {/* Foto */}
         <div>
           <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
             {produk.foto ? (
