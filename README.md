@@ -1,6 +1,6 @@
 # UMKM Kelurahan Taman
 
-Website katalog digital untuk UMKM di Kelurahan Taman — dibangun untuk membantu para pelaku usaha mikro, kecil, dan menengah mempromosikan produk mereka secara online dengan tampilan modern, cepat, dan mudah diakses.
+Website katalog digital untuk UMKM di Kelurahan Taman dibangun untuk membantu para pelaku usaha mikro, kecil, dan menengah mempromosikan produk mereka secara online dengan tampilan modern, cepat, dan mudah diakses.
 
 ## Tentang Project
 
