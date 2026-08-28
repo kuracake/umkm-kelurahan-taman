@@ -62,7 +62,7 @@ export function UmkmList({ umkms }: { umkms: Umkm[] }) {
               onClick={() => handleToggle(umkm.id, umkm.isActive)}
               className={`rounded-full px-3 py-1 text-xs font-medium ${
                 umkm.isActive
-                  ? "bg-green-100 text-green-700"
+                  ? "bg-brand-light text-brand"
                   : "bg-gray-100 text-gray-500"
               }`}
             >

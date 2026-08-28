@@ -96,14 +96,14 @@ export default async function ProdukDetailPage({
           <h1 className="text-2xl font-bold text-[#1F2937]">{produk.namaProduk}</h1>
           <p className="mt-1 text-sm text-gray-500">
             Dijual oleh{" "}
-            <Link href={`/umkm`} className="text-[#2E7D32] hover:underline">
+            <Link href={`/umkm`} className="text-brand hover:underline">
               {produk.umkm.namaUmkm}
             </Link>
             {" · "}
             {produk.kategori.nama}
           </p>
 
-          <p className="mt-4 text-3xl font-bold text-[#2E7D32]">
+          <p className="mt-4 text-3xl font-bold text-brand">
             Rp{produk.harga.toLocaleString("id-ID")}
           </p>
 

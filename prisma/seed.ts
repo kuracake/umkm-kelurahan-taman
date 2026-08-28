@@ -8,6 +8,7 @@ const KATEGORI_TETAP = [
   { nama: "Kue Basah", icon: "🧁" },
   { nama: "Makanan Berat", icon: "🍛" },
   { nama: "Minuman", icon: "🥤" },
+  { nama: "Lain-lain", icon: "🛒" },
 ];
 
 async function main() {

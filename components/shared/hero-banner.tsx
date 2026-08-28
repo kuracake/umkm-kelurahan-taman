@@ -6,7 +6,7 @@ import Image from "next/image";
 type Banner = {
   id: string;
   gambar: string;
-  judul: string;
+  judul: string | null;
 };
 
 export function HeroBanner({ banners }: { banners: Banner[] }) {
@@ -37,7 +37,7 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
         >
           <Image
             src={banner.gambar}
-            alt={banner.judul}
+            alt={banner.judul || "Banner promosi"}
             fill
             className="object-cover"
             priority={i === 0}

@@ -69,7 +69,7 @@ model Produk {
 
 model Banner {
   id        String   @id @default(cuid())
-  judul     String
+  judul     String?
   subjudul  String?
   gambar    String
   isActive  Boolean  @default(true) @map("is_active")
@@ -81,7 +81,7 @@ model Banner {
 
 model WebsiteSetting {
   id           String   @id @default(cuid())
-  namaWebsite  String   @default("Kampung Jajanan RW 06") @map("nama_website")
+  namaWebsite  String   @default("UMKM Kelurahan Taman") @map("nama_website")
   deskripsi    String?
   alamat       String?
   whatsapp     String?

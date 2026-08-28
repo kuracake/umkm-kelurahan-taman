@@ -59,7 +59,7 @@ export function ProdukList({ produks }: { produks: ProdukWithRelations[] }) {
             <p className="text-sm text-gray-500">
               {produk.umkm.namaUmkm} · {produk.kategori.nama}
             </p>
-            <p className="text-sm font-medium text-[#2E7D32]">
+            <p className="text-sm font-medium text-brand">
               Rp{produk.harga.toLocaleString("id-ID")}
             </p>
           </div>
@@ -69,7 +69,7 @@ export function ProdukList({ produks }: { produks: ProdukWithRelations[] }) {
               onClick={() => handleToggle(produk.id, produk.isActive)}
               className={`rounded-full px-3 py-1 text-xs font-medium ${
                 produk.isActive
-                  ? "bg-green-100 text-green-700"
+                  ? "bg-brand-light text-brand"
                   : "bg-gray-100 text-gray-500"
               }`}
             >

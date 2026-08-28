@@ -22,7 +22,7 @@ export function BannerList({ banners }: { banners: Banner[] }) {
   if (banners.length === 0) {
     return (
       <div className="rounded-lg border border-gray-100 bg-white p-6 text-center text-gray-500 shadow-sm">
-        Belum ada banner. Tambahkan lewat form di samping.
+        Belum ada banner
       </div>
     );
   }
@@ -50,7 +50,7 @@ export function BannerList({ banners }: { banners: Banner[] }) {
               onClick={() => handleToggle(banner.id, banner.isActive)}
               className={`rounded-full px-3 py-1 text-xs font-medium ${
                 banner.isActive
-                  ? "bg-green-100 text-green-700"
+                  ? "bg-brand-light text-brand"
                   : "bg-gray-100 text-gray-500"
               }`}
             >

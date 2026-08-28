@@ -6,7 +6,7 @@ export default async function TentangPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="mb-6 text-2xl font-bold text-[#1F2937]">
-        Tentang {setting?.namaWebsite ?? "Kampung Jajanan RW 06"}
+        Tentang {setting?.namaWebsite ?? "UMKM Kelurahan Taman"}
       </h1>
 
       {setting?.deskripsi ? (
@@ -15,9 +15,9 @@ export default async function TentangPage() {
         </p>
       ) : (
         <p className="text-gray-500">
-          Kampung Jajanan RW 06 Wonorejo adalah katalog digital yang menghubungkan
-          pengunjung dengan UMKM jajanan tradisional di sekitar wilayah RW 06.
-          Website ini bukan marketplace — setiap pemesanan dilakukan langsung
+          UMKM Kelurahan Taman adalah katalog digital yang menghubungkan
+          pengunjung dengan UMKM warga Kelurahan Taman di sekitar wilayah Taman, Surabaya.
+          Website ini bukan marketplace, setiap pemesanan dilakukan langsung
           antara pembeli dan pemilik UMKM melalui WhatsApp.
         </p>
       )}

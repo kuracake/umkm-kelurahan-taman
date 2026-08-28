@@ -52,7 +52,7 @@ export function ProdukForm({
           type="text"
           required
           placeholder="Contoh: Lemper Ayam"
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         />
       </div>
 
@@ -70,7 +70,7 @@ export function ProdukForm({
         <select
           name="umkmId"
           required
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         >
           <option value="">Pilih UMKM</option>
           {umkms.map((umkm) => (
@@ -88,7 +88,7 @@ export function ProdukForm({
         <select
           name="kategoriId"
           required
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         >
           <option value="">Pilih Kategori</option>
           {kategoris.map((kategori) => (
@@ -106,7 +106,7 @@ export function ProdukForm({
         <textarea
           name="deskripsi"
           rows={2}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         />
       </div>
 
@@ -135,7 +135,7 @@ export function ProdukForm({
       <button
         type="submit"
         disabled={loading}
-        className="rounded-md bg-[#2E7D32] py-2 font-medium text-white hover:bg-[#256428] disabled:opacity-50"
+        className="rounded-md bg-brand py-2 font-medium text-white hover:bg-brand-dark disabled:opacity-50"
       >
         {loading ? "Menyimpan..." : "Tambah Produk"}
       </button>

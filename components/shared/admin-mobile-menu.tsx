@@ -41,7 +41,7 @@ export function AdminMobileMenu() {
                     onClick={() => setIsOpen(false)}
                     className={`block rounded-md px-3 py-2 text-sm font-medium transition ${
                       isActive
-                        ? "bg-[#E8F5E9] text-[#2E7D32]"
+                        ? "bg-brand-light text-brand"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >

@@ -42,8 +42,8 @@ export function WebsiteSettingForm({ setting }: { setting: WebsiteSetting | null
           name="namaWebsite"
           type="text"
           required
-          defaultValue={setting?.namaWebsite ?? "Kampung Jajanan RW 06"}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          defaultValue={setting?.namaWebsite ?? "UMKM Kelurahan Taman"}
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         />
       </div>
 
@@ -55,7 +55,7 @@ export function WebsiteSettingForm({ setting }: { setting: WebsiteSetting | null
           name="deskripsi"
           rows={3}
           defaultValue={setting?.deskripsi ?? ""}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         />
       </div>
 
@@ -67,7 +67,7 @@ export function WebsiteSettingForm({ setting }: { setting: WebsiteSetting | null
           name="alamat"
           rows={2}
           defaultValue={setting?.alamat ?? ""}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         />
       </div>
 
@@ -80,7 +80,7 @@ export function WebsiteSettingForm({ setting }: { setting: WebsiteSetting | null
           type="text"
           defaultValue={setting?.whatsapp ?? ""}
           placeholder="628123456789"
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         />
       </div>
 
@@ -92,7 +92,7 @@ export function WebsiteSettingForm({ setting }: { setting: WebsiteSetting | null
           name="email"
           type="email"
           defaultValue={setting?.email ?? ""}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         />
       </div>
 
@@ -105,17 +105,17 @@ export function WebsiteSettingForm({ setting }: { setting: WebsiteSetting | null
           type="text"
           defaultValue={setting?.maps ?? ""}
           placeholder="Link embed dari Google Maps"
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
         />
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
-      {success && <p className="text-sm text-[#2E7D32]">Pengaturan berhasil disimpan.</p>}
+      {success && <p className="text-sm text-brand">Pengaturan berhasil disimpan.</p>}
 
       <button
         type="submit"
         disabled={loading}
-        className="rounded-md bg-[#2E7D32] py-2 font-medium text-white hover:bg-[#256428] disabled:opacity-50"
+        className="rounded-md bg-brand py-2 font-medium text-white hover:bg-brand-dark disabled:opacity-50"
       >
         {loading ? "Menyimpan..." : "Simpan Pengaturan"}
       </button>

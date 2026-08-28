@@ -71,7 +71,7 @@ CREATE TABLE "banners" (
 -- CreateTable
 CREATE TABLE "website_settings" (
     "id" TEXT NOT NULL,
-    "nama_website" TEXT NOT NULL DEFAULT 'Kampung Jajanan RW 06',
+    "nama_website" TEXT NOT NULL DEFAULT 'UMKM Kelurahan Taman',
     "deskripsi" TEXT,
     "alamat" TEXT,
     "whatsapp" TEXT,

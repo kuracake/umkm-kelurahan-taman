@@ -9,7 +9,7 @@ export default async function PublicLayout({
   children: React.ReactNode;
 }) {
   const setting = await websiteSettingService.get();
-  const namaWebsite = setting?.namaWebsite ?? "Kampung Jajanan RW 06";
+  const namaWebsite = setting?.namaWebsite ?? "UMKM Kelurahan Taman";
 
   return (
     <div className="flex min-h-screen flex-col">

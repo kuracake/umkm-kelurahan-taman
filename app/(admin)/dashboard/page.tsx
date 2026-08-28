@@ -34,7 +34,7 @@ export default async function DashboardPage() {
             className="rounded-lg bg-white p-6 shadow-sm border border-gray-100"
           >
             <p className="text-sm text-gray-500">{stat.label}</p>
-            <p className="mt-2 text-3xl font-bold text-[#2E7D32]">
+            <p className="mt-2 text-3xl font-bold text-brand">
               {stat.value}
             </p>
           </div>

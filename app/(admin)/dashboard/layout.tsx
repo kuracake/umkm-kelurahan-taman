@@ -1,7 +1,6 @@
 import { auth, signOut } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { BottomNav } from "@/components/shared/bottom-nav";
 import { AdminMobileMenu } from "@/components/shared/admin-mobile-menu";
 import { LogOut } from "lucide-react";
 
@@ -51,7 +50,7 @@ const menuItems = [
       {/* Sidebar — desktop only */}
       <aside className="hidden w-64 flex-col border-r border-gray-200 bg-white lg:flex">
         <div className="border-b border-gray-200 p-6">
-          <h2 className="text-lg font-bold text-[#2E7D32]">Kampung Jajanan</h2>
+          <h2 className="text-lg font-bold text-brand">UMKM Taman</h2>
           <p className="text-xs text-gray-500">Admin Panel</p>
         </div>
 
@@ -61,7 +60,7 @@ const menuItems = [
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block rounded-md px-4 py-2 text-sm text-[#1F2937] hover:bg-[#F8F9FA] hover:text-[#2E7D32]"
+                  className="block rounded-md px-4 py-2 text-sm text-[#1F2937] hover:bg-[#F8F9FA] hover:text-brand"
                 >
                   {item.label}
                 </Link>
@@ -89,9 +88,7 @@ const menuItems = [
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-4 pb-20 sm:p-8 lg:pb-8">{children}</main>
-
-      <BottomNav />
+      <main className="flex-1 p-4 pb-8 sm:p-8">{children}</main>
     </div>
   );
 }

@@ -37,30 +37,6 @@ export function BannerForm() {
 
       <div>
         <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Judul
-        </label>
-        <input
-          name="judul"
-          type="text"
-          required
-          placeholder="Contoh: Selamat Datang di Kampung Jajanan"
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
-        />
-      </div>
-
-      <div>
-        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Subjudul (opsional)
-        </label>
-        <input
-          name="subjudul"
-          type="text"
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#2E7D32] focus:outline-none"
-        />
-      </div>
-
-      <div>
-        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
           Gambar Banner
         </label>
         <input name="gambar" type="file" accept="image/*" required className="w-full text-sm" />
@@ -71,7 +47,7 @@ export function BannerForm() {
       <button
         type="submit"
         disabled={loading}
-        className="rounded-md bg-[#2E7D32] py-2 font-medium text-white hover:bg-[#256428] disabled:opacity-50"
+        className="rounded-md bg-brand py-2 font-medium text-white hover:bg-brand-dark disabled:opacity-50"
       >
         {loading ? "Menyimpan..." : "Tambah Banner"}
       </button>
