@@ -109,3 +109,9 @@ body {
   mask-image: radial-gradient(ellipse 100% 100% at 0% 0%, black 20%, transparent 75%);
   pointer-events: none;
 }
+
+/* Sembunyikan icon reveal password bawaan Edge/IE, biar tidak dobel dengan toggle custom kita */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
