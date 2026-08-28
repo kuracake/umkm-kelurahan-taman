@@ -2,13 +2,36 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ImagePlus, X } from "lucide-react";
 import { createBannerAction } from "../actions/banner.action";
 
 export function BannerForm() {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
+  const gambarInputRef = useRef<HTMLInputElement>(null);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const [gambarPreview, setGambarPreview] = useState<string | null>(null);
+  const [gambarName, setGambarName] = useState<string | null>(null);
+
+  const handleGambarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setGambarPreview(null);
+      setGambarName(null);
+      return;
+    }
+    setGambarName(file.name);
+    setGambarPreview(URL.createObjectURL(file));
+  };
+
+  const handleRemoveGambar = () => {
+    if (gambarInputRef.current) gambarInputRef.current.value = "";
+    setGambarPreview(null);
+    setGambarName(null);
+  };
 
   const handleSubmit = async (formData: FormData) => {
     setLoading(true);
@@ -24,6 +47,8 @@ export function BannerForm() {
     }
 
     formRef.current?.reset();
+    setGambarPreview(null);
+    setGambarName(null);
     router.refresh();
   };
 
@@ -39,7 +64,61 @@ export function BannerForm() {
         <label className="mb-1 block text-sm font-medium text-[#1F2937]">
           Gambar Banner
         </label>
-        <input name="gambar" type="file" accept="image/*" required className="w-full text-sm" />
+
+        <input
+          ref={gambarInputRef}
+          name="gambar"
+          type="file"
+          accept="image/*"
+          required
+          onChange={handleGambarChange}
+          className="hidden"
+        />
+
+        {gambarPreview ? (
+          <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
+            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md bg-white">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={gambarPreview}
+                alt="Preview gambar banner"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-gray-800">
+                {gambarName}
+              </p>
+              <button
+                type="button"
+                onClick={() => gambarInputRef.current?.click()}
+                className="text-xs font-medium text-brand hover:underline"
+              >
+                Ganti gambar
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={handleRemoveGambar}
+              aria-label="Hapus gambar"
+              className="shrink-0 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-600"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => gambarInputRef.current?.click()}
+            className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 px-4 py-6 text-center transition-colors hover:border-brand/40 hover:bg-brand-light/20"
+          >
+            <ImagePlus size={22} className="text-gray-400" />
+            <span className="text-sm font-medium text-gray-600">
+              Klik untuk pilih gambar
+            </span>
+            <span className="text-xs text-gray-400">PNG, JPG, atau WEBP</span>
+          </button>
+        )}
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
