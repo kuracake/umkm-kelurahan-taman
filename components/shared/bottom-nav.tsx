@@ -25,6 +25,7 @@ export function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={false}
               className={`flex items-center justify-center gap-2 rounded-full transition-all duration-300 ease-out ${
                 isActive
                   ? "flex-1 bg-brand px-4 py-2.5 shadow-[0_4px_14px_-2px_rgba(14,165,233,0.5)]"
