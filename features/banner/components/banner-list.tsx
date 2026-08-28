@@ -35,11 +35,11 @@ export function BannerList({ banners }: { banners: Banner[] }) {
           className="flex items-center gap-4 rounded-lg border border-gray-100 bg-white p-4 shadow-sm"
         >
           <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded-md bg-gray-100">
-            <Image src={banner.gambar} alt={banner.judul} fill className="object-cover" />
+            <Image src={banner.gambar} alt={banner.judul || "Banner"} fill className="object-cover" />
           </div>
 
           <div className="flex-1">
-            <p className="font-medium text-[#1F2937]">{banner.judul}</p>
+            <p className="font-medium text-[#1F2937]">{banner.judul || "(Tanpa judul)"}</p>
             {banner.subjudul && (
               <p className="text-sm text-gray-500">{banner.subjudul}</p>
             )}
