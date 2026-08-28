@@ -8,6 +8,7 @@ export function ProductCard({ produk }: { produk: ProdukWithRelations }) {
   return (
     <Link
       href={`/produk/${produk.slug}`}
+      prefetch={false}
       className="card-hover group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)]"
     >
       {/* Gambar — rasio persegi, konsisten di semua card */}

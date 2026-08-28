@@ -63,6 +63,7 @@ export default async function HomePage() {
               <Link
                 key={kategori.id}
                 href={`/produk?kategori=${kategori.id}`}
+                prefetch={false}
                 className="group flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-[--color-surface-tint] px-3 py-5 text-center transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-[--shadow-card]"
               >
                 <span className="text-3xl transition-transform duration-200 ease-out group-hover:scale-110">
@@ -123,6 +124,7 @@ export default async function HomePage() {
                 <Link
                   key={umkm.id}
                   href={`/umkm/${umkm.id}`}
+                  prefetch={false}
                   className="group flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-[--shadow-card] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-brand/30"
                 >
                   <div className="relative h-16 w-16 overflow-hidden rounded-full ring-2 ring-brand-light sm:h-20 sm:w-20">
