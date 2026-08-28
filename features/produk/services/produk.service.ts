@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { produkRepository } from "../repositories/produk.repository";
 import { produkSchema, type ProdukInput, type ProdukRawInput } from "../schemas/produk.schema";
 import { generateSlug } from "@/lib/slug";
@@ -24,7 +25,13 @@ async function generateUniqueSlug(namaProduk: string): Promise<string> {
 
 export const produkService = {
   getAll: () => produkRepository.findAll(),
-  getActive: () => produkRepository.findActive(),
+
+  getActive: unstable_cache(
+    () => produkRepository.findActive(),
+    ["produk-active"],
+    { tags: ["produk"] }
+  ),
+
   getBySlug: (slug: string) => produkRepository.findBySlug(slug),
 
   create: async (data: ProdukRawInput, fotoFile?: File, fotoTambahanFiles?: File[]) => {

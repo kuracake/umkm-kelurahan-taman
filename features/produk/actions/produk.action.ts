@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { produkService } from "../services/produk.service";
 
 export async function createProdukAction(formData: FormData) {
@@ -21,6 +21,7 @@ export async function createProdukAction(formData: FormData) {
     revalidatePath("/dashboard/produk");
     revalidatePath("/");
     revalidatePath("/produk");
+    revalidateTag("produk", "max");
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -34,6 +35,7 @@ export async function toggleProdukActiveAction(id: string, isActive: boolean) {
     revalidatePath("/dashboard/produk");
     revalidatePath("/");
     revalidatePath("/produk");
+    revalidateTag("produk","max");
     if (updated?.slug) revalidatePath(`/produk/${updated.slug}`);
     return { success: true };
   } catch (error) {
@@ -59,6 +61,7 @@ export async function updateProdukAction(id: string, formData: FormData) {
     revalidatePath("/dashboard/produk");
     revalidatePath("/");
     revalidatePath("/produk");
+    revalidateTag("produk","max");
     if (updated?.slug) revalidatePath(`/produk/${updated.slug}`);
     return { success: true };
   } catch (error) {
@@ -73,6 +76,7 @@ export async function deleteProdukAction(id: string) {
     revalidatePath("/dashboard/produk");
     revalidatePath("/");
     revalidatePath("/produk");
+    revalidateTag("produk", "max");
     return { success: true };
   } catch (error) {
     return { success: false, error: "Gagal menghapus produk" };
