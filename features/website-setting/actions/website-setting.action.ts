@@ -16,6 +16,8 @@ export async function updateWebsiteSettingAction(formData: FormData) {
 
     await websiteSettingService.update(data);
     revalidatePath("/dashboard/pengaturan");
+    revalidatePath("/");
+    revalidatePath("/kontak");
     return { success: true };
   } catch (error) {
     console.error(error);

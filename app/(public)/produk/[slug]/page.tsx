@@ -7,7 +7,6 @@ import { ProductCard } from "@/components/shared/product-card";
 import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
 
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

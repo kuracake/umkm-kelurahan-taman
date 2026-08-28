@@ -14,6 +14,7 @@ export async function createBannerAction(formData: FormData) {
 
     await bannerService.create(data, gambarFile);
     revalidatePath("/dashboard/banner");
+    revalidatePath("/");
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -26,6 +27,7 @@ export async function toggleBannerActiveAction(id: string, isActive: boolean) {
   try {
     await bannerService.toggleActive(id, isActive);
     revalidatePath("/dashboard/banner");
+    revalidatePath("/");
     return { success: true };
   } catch (error) {
     return { success: false, error: "Gagal mengubah status" };
@@ -36,6 +38,7 @@ export async function deleteBannerAction(id: string) {
   try {
     await bannerService.delete(id);
     revalidatePath("/dashboard/banner");
+    revalidatePath("/");
     return { success: true };
   } catch (error) {
     return { success: false, error: "Gagal menghapus banner" };

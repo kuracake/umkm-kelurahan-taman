@@ -21,7 +21,6 @@ const KATEGORI_ICON: Record<string, string> = {
   "Lain-lain": "🛒",
 };
 
-export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const [banners, produks, kategoris, umkms, setting] = await Promise.all([

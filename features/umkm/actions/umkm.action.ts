@@ -17,6 +17,8 @@ export async function createUmkmAction(formData: FormData) {
 
     await umkmService.create(data, fotoFile);
     revalidatePath("/dashboard/umkm");
+    revalidatePath("/");
+    revalidatePath("/umkm");
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -28,6 +30,8 @@ export async function toggleUmkmActiveAction(id: string, isActive: boolean) {
   try {
     await umkmService.toggleActive(id, isActive);
     revalidatePath("/dashboard/umkm");
+    revalidatePath("/");
+    revalidatePath("/umkm");
     return { success: true };
   } catch (error) {
     return { success: false, error: "Gagal mengubah status" };
@@ -48,6 +52,9 @@ export async function updateUmkmAction(id: string, formData: FormData) {
 
     await umkmService.update(id, data, fotoFile);
     revalidatePath("/dashboard/umkm");
+    revalidatePath("/");
+    revalidatePath("/umkm");
+    revalidatePath(`/umkm/${id}`);
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -59,6 +66,8 @@ export async function deleteUmkmAction(id: string) {
   try {
     await umkmService.delete(id);
     revalidatePath("/dashboard/umkm");
+    revalidatePath("/");
+    revalidatePath("/umkm");
     return { success: true };
   } catch (error) {
     return { success: false, error: "Gagal menghapus UMKM" };

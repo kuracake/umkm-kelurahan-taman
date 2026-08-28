@@ -19,6 +19,8 @@ export async function createProdukAction(formData: FormData) {
 
     await produkService.create(data, fotoFile, fotoTambahanFiles);
     revalidatePath("/dashboard/produk");
+    revalidatePath("/");
+    revalidatePath("/produk");
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -28,8 +30,11 @@ export async function createProdukAction(formData: FormData) {
 
 export async function toggleProdukActiveAction(id: string, isActive: boolean) {
   try {
-    await produkService.toggleActive(id, isActive);
+    const updated = await produkService.toggleActive(id, isActive);
     revalidatePath("/dashboard/produk");
+    revalidatePath("/");
+    revalidatePath("/produk");
+    if (updated?.slug) revalidatePath(`/produk/${updated.slug}`);
     return { success: true };
   } catch (error) {
     return { success: false, error: "Gagal mengubah status" };
@@ -50,8 +55,11 @@ export async function updateProdukAction(id: string, formData: FormData) {
     const fotoFile = formData.get("foto") as File;
     const fotoTambahanFiles = formData.getAll("fotoTambahan") as File[];
 
-    await produkService.update(id, data, fotoFile, fotoTambahanFiles);
+    const updated = await produkService.update(id, data, fotoFile, fotoTambahanFiles);
     revalidatePath("/dashboard/produk");
+    revalidatePath("/");
+    revalidatePath("/produk");
+    if (updated?.slug) revalidatePath(`/produk/${updated.slug}`);
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -63,6 +71,8 @@ export async function deleteProdukAction(id: string) {
   try {
     await produkService.delete(id);
     revalidatePath("/dashboard/produk");
+    revalidatePath("/");
+    revalidatePath("/produk");
     return { success: true };
   } catch (error) {
     return { success: false, error: "Gagal menghapus produk" };
