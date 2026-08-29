@@ -13,6 +13,8 @@ export const bannerRepository = {
   create: (data: BannerInput & { gambar: string }) =>
     prisma.banner.create({ data }),
 
+  findById: (id: string) => prisma.banner.findUnique({ where: { id } }),
+
   toggleActive: (id: string, isActive: boolean) =>
     prisma.banner.update({ where: { id }, data: { isActive } }),
 

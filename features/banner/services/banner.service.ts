@@ -1,6 +1,6 @@
 import { bannerRepository } from "../repositories/banner.repository";
 import { bannerSchema, type BannerInput } from "../schemas/banner.schema";
-import { uploadImage } from "@/lib/cloudinary";
+import { uploadImage, deleteImage } from "@/lib/cloudinary";
 
 export const bannerService = {
   getAll: () => bannerRepository.findAll(),
@@ -20,5 +20,10 @@ export const bannerService = {
   toggleActive: (id: string, isActive: boolean) =>
     bannerRepository.toggleActive(id, isActive),
 
-  delete: (id: string) => bannerRepository.delete(id),
+  delete: async (id: string) => {
+    const existing = await bannerRepository.findById(id);
+    if (existing?.gambar) await deleteImage(existing.gambar);
+
+    return bannerRepository.delete(id);
+  },
 };

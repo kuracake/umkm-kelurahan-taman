@@ -2,7 +2,7 @@ import { unstable_cache } from "next/cache";
 import { produkRepository } from "../repositories/produk.repository";
 import { produkSchema, type ProdukInput, type ProdukRawInput } from "../schemas/produk.schema";
 import { generateSlug } from "@/lib/slug";
-import { uploadImage } from "@/lib/cloudinary";
+import { uploadImage, deleteImage, deleteImages } from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 
 async function generateUniqueSlug(namaProduk: string): Promise<string> {
@@ -34,22 +34,27 @@ export const produkService = {
 
   getBySlug: (slug: string) => produkRepository.findBySlug(slug),
 
+  getById: (id: string) =>
+    prisma.produk.findUnique({
+      where: { id },
+      include: { umkm: true, kategori: true },
+    }),
+
   create: async (data: ProdukRawInput, fotoFile?: File, fotoTambahanFiles?: File[]) => {
     const validated = produkSchema.parse(data);
     const slug = await generateUniqueSlug(validated.namaProduk);
 
-    let fotoUrl: string | undefined;
-    if (fotoFile && fotoFile.size > 0) {
-      fotoUrl = await uploadImage(fotoFile, "produk");
-    }
+    const fotoPromise =
+      fotoFile && fotoFile.size > 0 ? uploadImage(fotoFile, "produk") : Promise.resolve(undefined);
 
-    let fotoTambahanUrls: string[] = [];
-    if (fotoTambahanFiles && fotoTambahanFiles.length > 0) {
-      const uploads = fotoTambahanFiles
-        .filter((f) => f.size > 0)
-        .map((f) => uploadImage(f, "produk"));
-      fotoTambahanUrls = await Promise.all(uploads);
-    }
+    const fotoTambahanPromise =
+      fotoTambahanFiles && fotoTambahanFiles.length > 0
+        ? Promise.all(
+            fotoTambahanFiles.filter((f) => f.size > 0).map((f) => uploadImage(f, "produk"))
+          )
+        : Promise.resolve<string[]>([]);
+
+    const [fotoUrl, fotoTambahanUrls] = await Promise.all([fotoPromise, fotoTambahanPromise]);
 
     return produkRepository.create({
       ...validated,
@@ -59,18 +64,14 @@ export const produkService = {
     });
   },
 
-  getById: (id: string) =>
-  prisma.produk.findUnique({
-    where: { id },
-    include: { umkm: true, kategori: true },
-  }),
-
   update: async (id: string, data: ProdukRawInput, fotoFile?: File, fotoTambahanFiles?: File[]) => {
     const validated = produkSchema.parse(data);
+    const existing = await produkService.getById(id);
 
     let fotoUrl: string | undefined;
     if (fotoFile && fotoFile.size > 0) {
       fotoUrl = await uploadImage(fotoFile, "produk");
+      if (existing?.foto) await deleteImage(existing.foto);
     }
 
     let fotoTambahanUrls: string[] | undefined;
@@ -79,6 +80,7 @@ export const produkService = {
         .filter((f) => f.size > 0)
         .map((f) => uploadImage(f, "produk"));
       fotoTambahanUrls = await Promise.all(uploads);
+      if (existing?.fotoTambahan?.length) await deleteImages(existing.fotoTambahan);
     }
 
     return produkRepository.update(id, {
@@ -91,5 +93,16 @@ export const produkService = {
   toggleActive: (id: string, isActive: boolean) =>
     produkRepository.update(id, { isActive } as Partial<ProdukInput> & { isActive: boolean }),
 
-  delete: (id: string) => produkRepository.delete(id),
+  delete: async (id: string) => {
+    const existing = await produkService.getById(id);
+
+    if (existing) {
+      const urls = [existing.foto, ...(existing.fotoTambahan ?? [])].filter(
+        (url): url is string => Boolean(url)
+      );
+      if (urls.length > 0) await deleteImages(urls);
+    }
+
+    return produkRepository.delete(id);
+  },
 };

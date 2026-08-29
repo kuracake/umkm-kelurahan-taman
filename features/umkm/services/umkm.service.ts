@@ -1,6 +1,6 @@
 import { umkmRepository } from "../repositories/umkm.repository";
 import { umkmSchema, type UmkmInput } from "../schemas/umkm.schema";
-import { uploadImage } from "@/lib/cloudinary";
+import { uploadImage, deleteImage } from "@/lib/cloudinary";
 
 export const umkmService = {
   getAll: () => umkmRepository.findAll(),
@@ -21,10 +21,12 @@ export const umkmService = {
 
   update: async (id: string, data: UmkmInput, fotoFile?: File) => {
     const validated = umkmSchema.parse(data);
+    const existing = await umkmRepository.findById(id);
 
     let fotoUrl: string | undefined;
     if (fotoFile && fotoFile.size > 0) {
       fotoUrl = await uploadImage(fotoFile, "umkm");
+      if (existing?.foto) await deleteImage(existing.foto);
     }
 
     return umkmRepository.update(id, { ...validated, ...(fotoUrl && { foto: fotoUrl }) });
@@ -34,5 +36,10 @@ export const umkmService = {
     return umkmRepository.update(id, { isActive } as Partial<UmkmInput>);
   },
 
-  delete: (id: string) => umkmRepository.delete(id),
+  delete: async (id: string) => {
+    const existing = await umkmRepository.findById(id);
+    if (existing?.foto) await deleteImage(existing.foto);
+
+    return umkmRepository.delete(id);
+  },
 };

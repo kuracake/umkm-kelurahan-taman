@@ -21,3 +21,25 @@ export async function uploadImage(file: File, folder: string): Promise<string> {
 
   return result.secure_url;
 }
+
+function extractPublicId(url: string): string | null {
+  // Contoh URL: https://res.cloudinary.com/xxx/image/upload/v1234567890/kampung-jajanan/produk/abcde.jpg
+  const match = url.match(/\/upload\/(?:v\d+\/)?(.+)\.[a-zA-Z0-9]+$/);
+  return match ? match[1] : null;
+}
+
+export async function deleteImage(url: string): Promise<void> {
+  const publicId = extractPublicId(url);
+  if (!publicId) return;
+
+  try {
+    await cloudinary.uploader.destroy(publicId);
+  } catch (error) {
+    // Jangan sampai gagal hapus gambar membuat proses hapus data di DB ikut gagal
+    console.error("Gagal menghapus gambar di Cloudinary:", publicId, error);
+  }
+}
+
+export async function deleteImages(urls: string[]): Promise<void> {
+  await Promise.all(urls.map((url) => deleteImage(url)));
+}

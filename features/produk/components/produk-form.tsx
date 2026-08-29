@@ -2,11 +2,11 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ImagePlus, X } from "lucide-react";
+import { ImagePlus, X, Loader2 } from "lucide-react";
 import { createProdukAction } from "../actions/produk.action";
 import type { Umkm, Kategori } from "@prisma/client";
 import { CurrencyInput } from "@/components/shared/currency-input";
-import { string } from "zod";
+import { Toast } from "@/components/shared/toast";
 
 export function ProdukForm({
   umkms,
@@ -21,7 +21,9 @@ export function ProdukForm({
   const fotoTambahanInputRef = useRef<HTMLInputElement>(null);
 
   const [loading, setLoading] = useState(false);
+  const isSubmittingRef = useRef(false);
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const [fotoPreview, setFotoPreview] = useState<string | null>(null);
   const [fotoName, setFotoName] = useState<string | null>(null);
@@ -69,12 +71,17 @@ export function ProdukForm({
   };
 
   const handleSubmit = async (formData: FormData) => {
+    if (isSubmittingRef.current) return; // cegah submit ganda
+    isSubmittingRef.current = true;
+
     setLoading(true);
     setError("");
 
+    const namaProduk = (formData.get("namaProduk") as string) || "Produk";
     const result = await createProdukAction(formData);
 
     setLoading(false);
+    isSubmittingRef.current = false;
 
     if (!result.success) {
       setError(result.error ?? "Terjadi kesalahan");
@@ -85,218 +92,252 @@ export function ProdukForm({
     setFotoPreview(null);
     setFotoName(null);
     setFotoTambahanList([]);
+    setSuccessMessage(`"${namaProduk}" berhasil ditambahkan`);
     router.refresh();
   };
 
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const formData = new FormData(e.currentTarget);
+  handleSubmit(formData);
+};
+
   return (
-    <form
-      ref={formRef}
-      action={handleSubmit}
-      className="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6 shadow-sm"
-    >
-      <h2 className="font-semibold text-[#1F2937]">Tambah Produk</h2>
-
-      <div>
-        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Nama Produk
-        </label>
-        <input
-          name="namaProduk"
-          type="text"
-          required
-          placeholder="Contoh: Lemper Ayam"
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
+    <>
+      {successMessage && (
+        <Toast
+          message={successMessage}
+          onClose={() => setSuccessMessage(null)}
         />
-      </div>
+      )}
 
-      <div>
-        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Harga (Rp)
-        </label>
-        <CurrencyInput name="harga" required />
-      </div>
+      <form
+        ref={formRef}
+        onSubmit={handleFormSubmit}
+        className="relative flex flex-col gap-4 overflow-hidden rounded-lg border border-gray-100 bg-white p-6 shadow-sm"
+      >
+        {/* Loading bar tipis di atas form */}
+        {loading && (
+          <div className="loading-bar-track">
+            <div className="loading-bar-fill" />
+          </div>
+        )}
 
-      <div>
-        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          UMKM
-        </label>
-        <select
-          name="umkmId"
-          required
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
-        >
-          <option value="">Pilih UMKM</option>
-          {umkms.map((umkm) => (
-            <option key={umkm.id} value={umkm.id}>
-              {umkm.namaUmkm}
-            </option>
-          ))}
-        </select>
-      </div>
+        <h2 className="font-semibold text-[#1F2937]">Tambah Produk</h2>
 
-      <div>
-        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Kategori
-        </label>
-        <select
-          name="kategoriId"
-          required
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
-        >
-          <option value="">Pilih Kategori</option>
-          {kategoris.map((kategori) => (
-            <option key={kategori.id} value={kategori.id}>
-              {kategori.icon ? `${kategori.icon} ${kategori.nama}` : kategori.nama}
-            </option>
-          ))}
-        </select>
-      </div>
+        <div>
+          <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+            Nama Produk
+          </label>
+          <input
+            name="namaProduk"
+            type="text"
+            required
+            disabled={loading}
+            placeholder="Contoh: Lemper Ayam"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none disabled:bg-gray-50"
+          />
+        </div>
 
-      <div>
-        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Deskripsi (opsional)
-        </label>
-        <textarea
-          name="deskripsi"
-          rows={2}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
-        />
-      </div>
+        <div>
+          <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+            Harga (Rp)
+          </label>
+          <CurrencyInput name="harga" required disabled={loading} />
+        </div>
 
-      {/* Foto Utama */}
-      <div>
-        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Foto Utama
-        </label>
+        <div>
+          <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+            UMKM
+          </label>
+          <select
+            name="umkmId"
+            required
+            disabled={loading}
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none disabled:bg-gray-50"
+          >
+            <option value="">Pilih UMKM</option>
+            {umkms.map((umkm) => (
+              <option key={umkm.id} value={umkm.id}>
+                {umkm.namaUmkm}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <input
-          ref={fotoInputRef}
-          name="foto"
-          type="file"
-          accept="image/*"
-          onChange={handleFotoChange}
-          className="hidden"
-        />
+        <div>
+          <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+            Kategori
+          </label>
+          <select
+            name="kategoriId"
+            required
+            disabled={loading}
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none disabled:bg-gray-50"
+          >
+            <option value="">Pilih Kategori</option>
+            {kategoris.map((kategori) => (
+              <option key={kategori.id} value={kategori.id}>
+                {kategori.icon ? `${kategori.icon} ${kategori.nama}` : kategori.nama}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        {fotoPreview ? (
-          <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
-            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md bg-white">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={fotoPreview}
-                alt="Preview foto utama"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-gray-800">
-                {fotoName}
-              </p>
+        <div>
+          <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+            Deskripsi (opsional)
+          </label>
+          <textarea
+            name="deskripsi"
+            rows={2}
+            disabled={loading}
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none disabled:bg-gray-50"
+          />
+        </div>
+
+        {/* Foto Utama */}
+        <div>
+          <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+            Foto Utama
+          </label>
+
+          <input
+            ref={fotoInputRef}
+            name="foto"
+            type="file"
+            accept="image/*"
+            onChange={handleFotoChange}
+            className="hidden"
+          />
+
+          {fotoPreview ? (
+            <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
+              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md bg-white">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={fotoPreview}
+                  alt="Preview foto utama"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-gray-800">
+                  {fotoName}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => fotoInputRef.current?.click()}
+                  disabled={loading}
+                  className="text-xs font-medium text-brand hover:underline disabled:opacity-50"
+                >
+                  Ganti foto
+                </button>
+              </div>
               <button
                 type="button"
-                onClick={() => fotoInputRef.current?.click()}
-                className="text-xs font-medium text-brand hover:underline"
+                onClick={handleRemoveFoto}
+                disabled={loading}
+                aria-label="Hapus foto"
+                className="shrink-0 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-600 disabled:opacity-50"
               >
-                Ganti foto
+                <X size={16} />
               </button>
             </div>
+          ) : (
             <button
               type="button"
-              onClick={handleRemoveFoto}
-              aria-label="Hapus foto"
-              className="shrink-0 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-600"
+              onClick={() => fotoInputRef.current?.click()}
+              disabled={loading}
+              className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 px-4 py-6 text-center transition-colors hover:border-brand/40 hover:bg-brand-light/20 disabled:opacity-50"
             >
-              <X size={16} />
+              <ImagePlus size={22} className="text-gray-400" />
+              <span className="text-sm font-medium text-gray-600">
+                Klik untuk pilih foto
+              </span>
+              <span className="text-xs text-gray-400">PNG, JPG, atau WEBP</span>
             </button>
-          </div>
-        ) : (
-          <button
-            type="button"
-            onClick={() => fotoInputRef.current?.click()}
-            className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 px-4 py-6 text-center transition-colors hover:border-brand/40 hover:bg-brand-light/20"
-          >
-            <ImagePlus size={22} className="text-gray-400" />
-            <span className="text-sm font-medium text-gray-600">
-              Klik untuk pilih foto
-            </span>
-            <span className="text-xs text-gray-400">PNG, JPG, atau WEBP</span>
-          </button>
-        )}
-      </div>
+          )}
+        </div>
 
-      {/* Foto Tambahan */}
-      <div>
-        <label className="mb-1 block text-sm font-medium text-[#1F2937]">
-          Foto Tambahan (opsional, bisa pilih beberapa sekaligus)
-        </label>
+        {/* Foto Tambahan */}
+        <div>
+          <label className="mb-1 block text-sm font-medium text-[#1F2937]">
+            Foto Tambahan (opsional, bisa pilih beberapa sekaligus)
+          </label>
 
-        <input
-          ref={fotoTambahanInputRef}
-          name="fotoTambahan"
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleFotoTambahanChange}
-          className="hidden"
-        />
+          <input
+            ref={fotoTambahanInputRef}
+            name="fotoTambahan"
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleFotoTambahanChange}
+            className="hidden"
+          />
 
-        {fotoTambahanList.length > 0 ? (
-          <div className="flex flex-col gap-2">
-            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-              {fotoTambahanList.map((item, index) => (
-                <div
-                  key={index}
-                  className="group relative aspect-square overflow-hidden rounded-md border border-gray-200 bg-gray-50"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.preview}
-                    alt={`Preview foto tambahan ${index + 1}`}
-                    className="h-full w-full object-cover"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveFotoTambahan(index)}
-                    aria-label="Hapus foto"
-                    className="absolute right-1 top-1 rounded-full bg-black/60 p-1 text-white transition-colors hover:bg-black/80"
+          {fotoTambahanList.length > 0 ? (
+            <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+                {fotoTambahanList.map((item, index) => (
+                  <div
+                    key={index}
+                    className="group relative aspect-square overflow-hidden rounded-md border border-gray-200 bg-gray-50"
                   >
-                    <X size={12} />
-                  </button>
-                </div>
-              ))}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.preview}
+                      alt={`Preview foto tambahan ${index + 1}`}
+                      className="h-full w-full object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveFotoTambahan(index)}
+                      disabled={loading}
+                      aria-label="Hapus foto"
+                      className="absolute right-1 top-1 rounded-full bg-black/60 p-1 text-white transition-colors hover:bg-black/80 disabled:opacity-50"
+                    >
+                      <X size={12} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => fotoTambahanInputRef.current?.click()}
+                disabled={loading}
+                className="self-start text-xs font-medium text-brand hover:underline disabled:opacity-50"
+              >
+                Tambah/ganti foto
+              </button>
             </div>
+          ) : (
             <button
               type="button"
               onClick={() => fotoTambahanInputRef.current?.click()}
-              className="self-start text-xs font-medium text-brand hover:underline"
+              disabled={loading}
+              className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 px-4 py-6 text-center transition-colors hover:border-brand/40 hover:bg-brand-light/20 disabled:opacity-50"
             >
-              Tambah/ganti foto
+              <ImagePlus size={22} className="text-gray-400" />
+              <span className="text-sm font-medium text-gray-600">
+                Klik untuk pilih beberapa foto
+              </span>
+              <span className="text-xs text-gray-400">PNG, JPG, atau WEBP</span>
             </button>
-          </div>
-        ) : (
-          <button
-            type="button"
-            onClick={() => fotoTambahanInputRef.current?.click()}
-            className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 px-4 py-6 text-center transition-colors hover:border-brand/40 hover:bg-brand-light/20"
-          >
-            <ImagePlus size={22} className="text-gray-400" />
-            <span className="text-sm font-medium text-gray-600">
-              Klik untuk pilih beberapa foto
-            </span>
-            <span className="text-xs text-gray-400">PNG, JPG, atau WEBP</span>
-          </button>
-        )}
-      </div>
+          )}
+        </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-sm text-red-600">{error}</p>}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="rounded-md bg-brand py-2 font-medium text-white hover:bg-brand-dark disabled:opacity-50"
-      >
-        {loading ? "Menyimpan..." : "Tambah Produk"}
-      </button>
-    </form>
+        <button
+          type="submit"
+          disabled={loading}
+          className="flex items-center justify-center gap-2 rounded-md bg-brand py-2 font-medium text-white hover:bg-brand-dark disabled:opacity-50"
+        >
+          {loading && <Loader2 size={16} className="animate-spin" />}
+          {loading ? "Menyimpan..." : "Tambah Produk"}
+        </button>
+      </form>
+    </>
   );
 }

@@ -12,10 +12,12 @@ export function CurrencyInput({
   name,
   defaultValue,
   required,
+  disabled,
 }: {
   name: string;
   defaultValue?: number;
   required?: boolean;
+  disabled?: boolean;
 }) {
   const [display, setDisplay] = useState(
     defaultValue ? formatRupiah(String(defaultValue)) : ""
@@ -38,8 +40,9 @@ export function CurrencyInput({
         inputMode="numeric"
         value={display}
         onChange={handleChange}
+        disabled={disabled}
         placeholder="0"
-        className="w-full rounded-md border border-gray-300 py-2 pl-9 pr-3 focus:border-brand focus:outline-none"
+        className="w-full rounded-md border border-gray-300 py-2 pl-9 pr-3 focus:border-brand focus:outline-none disabled:bg-gray-50"
       />
       <input type="hidden" name={name} value={raw} required={required} />
     </div>
