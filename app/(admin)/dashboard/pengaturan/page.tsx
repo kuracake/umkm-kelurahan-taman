@@ -6,7 +6,7 @@ export default async function PengaturanPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-[#1F2937]">
+      <h1 className="mb-6 text-center text-2xl font-bold text-[#1F2937]">
         Pengaturan Website
       </h1>
       <WebsiteSettingForm setting={setting} />

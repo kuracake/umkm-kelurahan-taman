@@ -7,7 +7,7 @@ export default async function BannerPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-[#1F2937]">Kelola Banner</h1>
+      <h1 className="mb-6 text-center text-2xl font-bold text-[#1F2937]">Kelola Banner</h1>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-1">
