@@ -7,6 +7,7 @@ import { deleteProdukAction, toggleProdukActiveAction } from "../actions/produk.
 import type { Produk, Umkm, Kategori } from "@prisma/client";
 import Link from "next/link";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { Pencil, Trash2 } from "lucide-react";
 
 type ProdukWithRelations = Produk & { umkm: Umkm; kategori: Kategori };
 
@@ -58,6 +59,22 @@ export function ProdukList({ produks }: { produks: ProdukWithRelations[] }) {
             </div>
 
             <div className="flex-1">
+              <button
+                onClick={() => handleToggle(produk.id, produk.isActive)}
+                className={`mb-1 flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium transition ${
+                  produk.isActive
+                    ? "bg-brand-light text-brand"
+                    : "bg-gray-100 text-gray-500"
+                }`}
+              >
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${
+                    produk.isActive ? "bg-brand" : "bg-gray-400"
+                  }`}
+                />
+                {produk.isActive ? "Aktif" : "Nonaktif"}
+              </button>
+
               <div className="flex items-center gap-2">
                 <p className="font-medium text-[#1F2937]">{produk.namaProduk}</p>
                 {produk.bestSeller && (
@@ -74,31 +91,19 @@ export function ProdukList({ produks }: { produks: ProdukWithRelations[] }) {
               </p>
             </div>
 
-            <div className="flex flex-col items-end gap-2">
-              <button
-                onClick={() => handleToggle(produk.id, produk.isActive)}
-                className={`rounded-full px-3 py-1 text-xs font-medium ${
-                  produk.isActive
-                    ? "bg-brand-light text-brand"
-                    : "bg-gray-100 text-gray-500"
-                }`}
+            <div className="flex shrink-0 flex-col items-end gap-1.5">
+              <Link
+                href={`/dashboard/produk/${produk.id}/edit`}
+                className="text-sm font-medium text-brand hover:underline"
               >
-                {produk.isActive ? "Aktif" : "Nonaktif"}
+                Edit
+              </Link>
+              <button
+                onClick={() => setDeleteTarget(produk)}
+                className="text-sm font-medium text-red-600 hover:underline"
+              >
+                Hapus
               </button>
-              <div className="flex gap-3">
-                <Link
-                  href={`/dashboard/produk/${produk.id}/edit`}
-                  className="text-sm text-brand hover:underline"
-                >
-                  Edit
-                </Link>
-                <button
-                  onClick={() => setDeleteTarget(produk)}
-                  className="text-sm text-red-600 hover:underline"
-                >
-                  Hapus
-                </button>
-              </div>
             </div>
           </div>
         ))}

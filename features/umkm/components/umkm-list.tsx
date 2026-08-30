@@ -59,36 +59,40 @@ export function UmkmList({ umkms }: { umkms: Umkm[] }) {
             </div>
 
             <div className="flex-1">
-              <p className="font-medium text-[#1F2937]">{umkm.namaUmkm}</p>
-              <p className="text-sm text-gray-500">{umkm.namaPemilik}</p>
-              <p className="text-sm text-gray-500">{umkm.whatsapp}</p>
-            </div>
-
-            <div className="flex flex-col items-end gap-2">
               <button
                 onClick={() => handleToggle(umkm.id, umkm.isActive)}
-                className={`rounded-full px-3 py-1 text-xs font-medium ${
+                className={`mb-1 flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium transition ${
                   umkm.isActive
                     ? "bg-brand-light text-brand"
                     : "bg-gray-100 text-gray-500"
                 }`}
               >
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${
+                    umkm.isActive ? "bg-brand" : "bg-gray-400"
+                  }`}
+                />
                 {umkm.isActive ? "Aktif" : "Nonaktif"}
               </button>
-              <div className="flex gap-3">
-                <Link
-                  href={`/dashboard/umkm/${umkm.id}/edit`}
-                  className="text-sm text-brand hover:underline"
-                >
-                  Edit
-                </Link>
-                <button
-                  onClick={() => setDeleteTarget(umkm)}
-                  className="text-sm text-red-600 hover:underline"
-                >
-                  Hapus
-                </button>
-              </div>
+
+              <p className="font-medium text-[#1F2937]">{umkm.namaUmkm}</p>
+              <p className="text-sm text-gray-500">{umkm.namaPemilik}</p>
+              <p className="text-sm text-gray-500">{umkm.whatsapp}</p>
+            </div>
+
+            <div className="flex shrink-0 flex-col items-end gap-1.5">
+              <Link
+                href={`/dashboard/umkm/${umkm.id}/edit`}
+                className="text-sm font-medium text-brand hover:underline"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={() => setDeleteTarget(umkm)}
+                className="text-sm font-medium text-red-600 hover:underline"
+              >
+                Hapus
+              </button>
             </div>
           </div>
         ))}
