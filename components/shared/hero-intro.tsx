@@ -6,8 +6,6 @@ export function HeroIntro({ namaWebsite }: { namaWebsite: string }) {
     <section className="relative overflow-hidden bg-texture-hero px-4 py-10 text-center sm:py-14">
       <div className="relative z-10 mx-auto max-w-2xl">
         <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-brand-dark sm:text-4xl">
-          Etalase Digital
-          <br />
           {namaWebsite}
         </h1>
 

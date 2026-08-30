@@ -12,172 +12,129 @@ export default async function KontakPage() {
   const setting = await websiteSettingService.get();
   const namaWebsite = setting?.namaWebsite ?? "UMKM Kelurahan Taman";
 
-  const hasContact =
-    setting?.alamat || setting?.whatsapp || setting?.email;
+  const hasContact = setting?.alamat || setting?.whatsapp || setting?.email;
 
-  const { url: mapsEmbedUrl, error: mapsError } =
-    await resolveMapsEmbedUrl(setting?.maps);
+  const { url: mapsEmbedUrl, error: mapsError } = await resolveMapsEmbedUrl(setting?.maps);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
-      {/* Header */}
-      <div className="mb-8 flex items-start gap-4">
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand text-white shadow-md shadow-brand/20">
-          <MessageCircle size={26} strokeWidth={2} />
-        </div>
+      {hasContact ? (
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+          {/* WhatsApp */}
+          {setting?.whatsapp && (
+            
+            <a
+              href={`https://wa.me/${setting.whatsapp.replace(/\D/g, "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-4 border-b border-gray-100 p-5 transition-colors duration-200 hover:bg-brand-light/20"
+            >
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand">
+                <MessageCircle size={19} />
+              </div>
 
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-            Kontak Kami
-          </h1>
+              <div className="min-w-0 flex-1">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
+                  WhatsApp
+                </p>
+                <p className="mt-1 truncate text-sm font-semibold text-gray-900">
+                  {setting.whatsapp}
+                </p>
+                <p className="text-xs text-gray-500">Respon lebih cepat lewat WhatsApp</p>
+              </div>
 
-          <p className="mt-1.5 text-sm leading-relaxed text-gray-500">
-            Hubungi kami untuk informasi lebih lanjut mengenai{" "}
-            <span className="font-medium text-brand">
-              {namaWebsite}
-            </span>
-            .
-          </p>
-        </div>
-      </div>
+              <ChevronRight
+                size={18}
+                className="shrink-0 text-gray-300 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
+            </a>
+          )}
 
-      {/* Card kontak */}
-      <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-[0_4px_24px_-6px_rgba(14,165,233,0.12)]">
-        {/* Alamat */}
-        {setting?.alamat && (
-          <div className="flex items-start gap-4 border-b border-gray-100 p-5">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand">
-              <MapPin size={19} />
+          {/* Alamat */}
+          {setting?.alamat && (
+            <div className="flex items-start gap-4 border-b border-gray-100 p-5">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand">
+                <MapPin size={19} />
+              </div>
+
+              <div className="min-w-0 flex-1 pt-0.5">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
+                  Alamat
+                </p>
+                <p className="mt-1 text-sm font-semibold leading-relaxed text-gray-900">
+                  {setting.alamat}
+                </p>
+              </div>
             </div>
+          )}
 
-            <div>
-              <p className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
-                Alamat
-              </p>
+          {/* Email */}
+          {setting?.email && (
+            
+            <a
+              href={`mailto:${setting.email}`}
+              className="group flex items-center gap-4 border-b border-gray-100 p-5 transition-colors duration-200 hover:bg-brand-light/20"
+            >
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand">
+                <Mail size={19} />
+              </div>
 
-              <p className="mt-1 text-sm font-semibold leading-relaxed text-gray-900">
-                {setting.alamat}
-              </p>
-            </div>
-          </div>
-        )}
+              <div className="min-w-0 flex-1">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
+                  Email
+                </p>
+                <p className="mt-1 truncate text-sm font-semibold text-gray-900">
+                  {setting.email}
+                </p>
+              </div>
 
-        {/* WhatsApp */}
-        {setting?.whatsapp && (
-          <a
-            href={`https://wa.me/${setting.whatsapp.replace(/\D/g, "")}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-4 border-b border-gray-100 p-5 transition-colors duration-200 hover:bg-brand-light/30"
-          >
+              <ChevronRight
+                size={18}
+                className="shrink-0 text-gray-300 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
+            </a>
+          )}
+
+          {/* Dukung UMKM Lokal */}
+          <div className="flex items-center gap-4 p-5">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand">
-              <MessageCircle size={19} />
+              <Store size={19} />
             </div>
 
             <div className="min-w-0 flex-1">
               <p className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
-                WhatsApp
+                Dukung UMKM Lokal
               </p>
-
-              <p className="truncate font-semibold text-brand">
-                {setting.whatsapp}
-              </p>
-
-              <p className="text-xs text-gray-500">
-                Chat kami melalui WhatsApp
+              <p className="mt-1 text-sm leading-relaxed text-gray-600">
+                Bersama kita majukan UMKM di lingkungan{" "}
+                <span className="font-semibold text-gray-900">{namaWebsite}</span>.
               </p>
             </div>
-
-            <ChevronRight
-              className="shrink-0 text-gray-300"
-              size={18}
-            />
-          </a>
-        )}
-
-        {/* Email */}
-        {setting?.email && (
-          <a
-            href={`mailto:${setting.email}`}
-            className="flex items-center gap-4 p-5 transition-colors duration-200 hover:bg-brand-light/30"
-          >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand">
-              <Mail size={19} />
-            </div>
-
-            <div className="min-w-0 flex-1">
-              <p className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
-                Email
-              </p>
-
-              <p className="truncate font-semibold text-brand">
-                {setting.email}
-              </p>
-
-              <p className="text-xs text-gray-500">
-                Kirim email kepada kami
-              </p>
-            </div>
-
-            <ChevronRight
-              className="shrink-0 text-gray-300"
-              size={18}
-            />
-          </a>
-        )}
-
-        {/* Tidak ada kontak */}
-        {!hasContact && (
-          <div className="p-10 text-center text-sm text-gray-500">
-            Informasi kontak belum tersedia.
-          </div>
-        )}
-      </div>
-
-      {/* Banner ajakan */}
-      <div className="mt-6 rounded-3xl bg-brand-light/40 p-5">
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
-            <Store className="text-brand" size={22} />
-          </div>
-
-          <div>
-            <p className="font-bold text-brand">
-              Dukung UMKM Lokal
-            </p>
-
-            <p className="mt-0.5 text-sm leading-relaxed text-gray-600">
-              Bersama kita majukan UMKM di lingkungan{" "}
-              <span className="font-semibold">
-                {namaWebsite}
-              </span>
-              .
-            </p>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="rounded-2xl border border-gray-100 bg-white p-10 text-center text-sm text-gray-500 shadow-sm">
+          Informasi kontak belum tersedia.
+        </div>
+      )}
 
       {/* Google Maps */}
       {setting?.maps && (
-        <div className="mt-6 overflow-hidden rounded-3xl border border-gray-100 shadow-[0_4px_24px_-6px_rgba(14,165,233,0.12)]">
+        <div className="mt-4 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
           {mapsEmbedUrl ? (
             <iframe
               src={mapsEmbedUrl}
               title={`Lokasi ${namaWebsite}`}
               width="100%"
-              height="300"
-              style={{ border: 0 }}
+              height="280"
+              style={{ border: 0, display: "block" }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
             />
           ) : (
-            <div className="flex h-75 flex-col items-center justify-center gap-2 bg-gray-50 p-6 text-center">
-              <MapPin
-                className="text-gray-300"
-                size={28}
-              />
-
+            <div className="flex h-72 flex-col items-center justify-center gap-2 bg-gray-50 p-6 text-center">
+              <MapPin className="text-gray-300" size={28} />
               <p className="text-sm text-gray-500">
                 {mapsError === "unreachable"
                   ? "Tidak bisa memuat lokasi Maps saat ini. Coba lagi nanti."
