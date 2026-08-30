@@ -59,7 +59,7 @@ export function Navbar({ namaWebsite }: { namaWebsite: string }) {
           <button
             type="button"
             onClick={() => setMobileSearchOpen((v) => !v)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-600 transition hover:border-brand hover:text-brand"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-gray-600 transition hover:border-brand hover:text-brand"
             aria-label="Cari"
           >
             <Search className="h-4 w-4" />
@@ -102,7 +102,7 @@ export function Navbar({ namaWebsite }: { namaWebsite: string }) {
             <button
               type="button"
               onClick={() => setMobileSearchOpen(false)}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-gray-600"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-gray-600"
               aria-label="Tutup pencarian"
             >
               <X className="h-4 w-4" />
