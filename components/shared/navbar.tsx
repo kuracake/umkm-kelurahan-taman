@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Search, X } from "lucide-react";
+import { Search, X, Menu } from "lucide-react";
 
 const navItems = [
   { label: "Beranda", href: "/" },
@@ -17,6 +18,7 @@ export function Navbar({ namaWebsite }: { namaWebsite: string }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,68 +28,78 @@ export function Navbar({ namaWebsite }: { namaWebsite: string }) {
 
   return (
     <header className="sticky top-0 z-20 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3.5 sm:py-3">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="flex shrink-0 items-center gap-2 font-heading text-base font-bold text-brand-dark sm:text-lg"
-        >
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-light text-lg sm:h-8 sm:w-8">
-            🏪
-          </span>
-          <span className="max-w-50 truncate text-sm sm:max-w-none sm:text-lg">
-            {namaWebsite}
-          </span>
-        </Link>
+      <div className="mx-auto grid max-w-6xl grid-cols-[auto_1fr_auto] items-center gap-4 overflow-visible px-4 py-3">
+        {/* Kiri — hamburger (mobile) / nav (desktop) */}
+        <div className="flex items-center">
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-50 sm:hidden"
+            aria-label="Menu"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
 
-        {/* Search — desktop */}
-        <form
-          onSubmit={handleSearch}
-          className="hidden flex-1 justify-center sm:flex"
-        >
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Cari jajanan favoritmu..."
-            className="w-full max-w-sm rounded-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm transition focus:border-brand focus:bg-white focus:outline-none"
-          />
-        </form>
+          <ul className="hidden items-center gap-5 text-sm font-medium text-gray-700 sm:flex">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="transition hover:text-brand">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        {/* Spacer supaya logo & search icon tetap di ujung saat mobile */}
-        <div className="flex flex-1 items-center justify-end gap-2 sm:hidden">
+        {/* Tengah — logo, benar-benar center, meluber keluar header */}
+        <div className="flex justify-center overflow-visible">
+          <Link href="/" className="flex items-center">
+            <span className="relative -my-9 h-32 w-80 sm:-my-10 sm:h-40 sm:w-96">
+              <Image
+                src="/logo.png"
+                alt={namaWebsite}
+                fill
+                className="object-contain"
+                priority
+              />
+            </span>
+          </Link>
+        </div>
+
+        {/* Kanan — search + admin login (desktop) */}
+        <div className="flex items-center justify-end gap-2">
+          <form
+            onSubmit={handleSearch}
+            className="hidden sm:flex"
+          >
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Cari jajanan favoritmu..."
+              className="w-48 rounded-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm transition focus:border-brand focus:bg-white focus:outline-none lg:w-64"
+            />
+          </form>
+
           <button
             type="button"
             onClick={() => setMobileSearchOpen((v) => !v)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-gray-600 transition hover:border-brand hover:text-brand"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-50 sm:hidden"
             aria-label="Cari"
           >
-            <Search className="h-4 w-4" />
+            <Search className="h-5 w-5" />
           </button>
+
+          <Link
+            href="/login"
+            className="hidden shrink-0 rounded-full border border-brand/30 px-3 py-1.5 text-xs font-semibold text-brand transition hover:bg-brand-light/40 sm:block"
+          >
+            Admin Login
+          </Link>
         </div>
-
-        {/* Navigation — desktop */}
-        <ul className="hidden shrink-0 items-center gap-5 text-sm font-medium text-gray-700 sm:flex">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <Link href={item.href} className="transition hover:text-brand">
-                {item.label}
-              </Link>
-            </li>
-          ))}
-
-          <li>
-            <Link
-              href="/login"
-              className="rounded-full border border-brand/30 px-3 py-1.5 text-xs font-semibold text-brand transition hover:bg-brand-light/40"
-            >
-              Admin Login
-            </Link>
-          </li>
-        </ul>
       </div>
 
-      {/* Search — mobile, muncul di bawah header saat ikon ditekan */}
+      {/* Search — mobile, expandable */}
       {mobileSearchOpen && (
         <div className="border-t border-gray-100 bg-white px-4 py-3 sm:hidden">
           <form onSubmit={handleSearch} className="flex items-center gap-2">
@@ -102,12 +114,25 @@ export function Navbar({ namaWebsite }: { namaWebsite: string }) {
             <button
               type="button"
               onClick={() => setMobileSearchOpen(false)}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-gray-600"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-gray-600"
               aria-label="Tutup pencarian"
             >
               <X className="h-4 w-4" />
             </button>
           </form>
+        </div>
+      )}
+
+      {/* Menu — mobile, dropdown dari hamburger, cuma Admin Login */}
+      {mobileMenuOpen && (
+        <div className="border-t border-gray-100 bg-white px-4 py-3 sm:hidden">
+          <Link
+            href="/login"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-brand transition hover:bg-brand-light/40"
+          >
+            Admin Login
+          </Link>
         </div>
       )}
     </header>

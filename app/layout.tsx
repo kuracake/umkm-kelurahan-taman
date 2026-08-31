@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Poppins, Inter } from "next/font/google";
+import { Baloo_2, Inter } from "next/font/google";
 import "./globals.css";
 import { AuthSessionProvider } from "@/components/shared/session-provider";
 
-const poppins = Poppins({
+const baloo2 = Baloo_2({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700", "800"],
 });
 
 const inter = Inter({
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "UMKM Kelurahan Taman",
-    description: "Katalog digital UMKM jajanan tradisional RW 06 Wonorejo. Pesan langsung via WhatsApp.",
+    description: "Katalog digital UMKM Kelurahan Taman. Temukan dan pesan langsung via WhatsApp.",
     url: "https://umkm-kelurahan-taman.vercel.app",
     siteName: "UMKM Kelurahan Taman",
     locale: "id_ID",
@@ -50,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${poppins.variable} ${inter.variable} h-full antialiased`}>
+    <html lang="id" className={`${baloo2.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-(family-name:--font-body)">
         <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
