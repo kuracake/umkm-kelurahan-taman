@@ -51,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${baloo2.variable} ${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-(family-name:--font-body)">
+      <body className="min-h-full flex w-full flex-col font-(family-name:--font-body)">
         <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
     </html>
