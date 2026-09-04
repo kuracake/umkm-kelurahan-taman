@@ -1,48 +1,78 @@
 // hero-intro.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Heart, ShieldCheck, Store } from "lucide-react";
+import {
+  ArrowRight,
+  Heart,
+  ShieldCheck,
+  Store,
+} from "lucide-react";
 
 type HeroIntroProps = {
   namaWebsite: string;
 };
 
+/* =========================================================
+   BUBBLES
+========================================================= */
+
 const bubbles = [
-  { size: 18, top: "8%", left: "72%", opacity: 0.18 },
-  { size: 10, top: "13%", left: "79%", opacity: 0.3 },
-  { size: 24, top: "18%", left: "88%", opacity: 0.12 },
-  { size: 14, top: "25%", left: "67%", opacity: 0.2 },
-  { size: 32, top: "31%", left: "78%", opacity: 0.1 },
-  { size: 12, top: "38%", left: "91%", opacity: 0.24 },
-  { size: 20, top: "46%", left: "73%", opacity: 0.16 },
-  { size: 9, top: "53%", left: "84%", opacity: 0.3 },
-  { size: 28, top: "60%", left: "93%", opacity: 0.1 },
-  { size: 15, top: "68%", left: "70%", opacity: 0.2 },
-  { size: 22, top: "75%", left: "81%", opacity: 0.12 },
-  { size: 11, top: "82%", left: "91%", opacity: 0.24 },
-  { size: 36, top: "12%", left: "94%", opacity: 0.08 },
-  { size: 16, top: "34%", left: "60%", opacity: 0.18 },
-  { size: 26, top: "57%", left: "63%", opacity: 0.09 },
-  { size: 13, top: "87%", left: "76%", opacity: 0.18 },
+  { size: 14, top: "8%", left: "72%", opacity: 0.18 },
+  { size: 8, top: "13%", left: "79%", opacity: 0.28 },
+  { size: 22, top: "17%", left: "91%", opacity: 0.1 },
+  { size: 12, top: "25%", left: "67%", opacity: 0.18 },
+  { size: 28, top: "31%", left: "78%", opacity: 0.08 },
+  { size: 10, top: "38%", left: "92%", opacity: 0.22 },
+  { size: 17, top: "45%", left: "74%", opacity: 0.14 },
+  { size: 8, top: "52%", left: "84%", opacity: 0.26 },
+  { size: 24, top: "59%", left: "94%", opacity: 0.08 },
+  { size: 13, top: "67%", left: "69%", opacity: 0.18 },
+  { size: 19, top: "74%", left: "82%", opacity: 0.1 },
+  { size: 10, top: "82%", left: "91%", opacity: 0.22 },
+  { size: 31, top: "10%", left: "95%", opacity: 0.07 },
+  { size: 14, top: "34%", left: "60%", opacity: 0.15 },
+  { size: 21, top: "56%", left: "63%", opacity: 0.08 },
+  { size: 11, top: "88%", left: "76%", opacity: 0.15 },
+  { size: 16, top: "20%", left: "83%", opacity: 0.12 },
+  { size: 9, top: "43%", left: "87%", opacity: 0.2 },
+  { size: 25, top: "70%", left: "58%", opacity: 0.07 },
+  { size: 12, top: "91%", left: "87%", opacity: 0.14 },
 ];
+
+/* =========================================================
+   OUTLINED BUBBLES
+========================================================= */
+
+const outlinedBubbles = [
+  "right-[13%] top-[16%] h-40 w-40",
+  "right-[19%] top-[22%] h-24 w-24",
+  "bottom-[11%] right-[30%] h-20 w-20",
+  "right-[34%] top-[36%] h-16 w-16",
+];
+
+/* =========================================================
+   COMPONENT
+========================================================= */
 
 export function HeroIntro({ namaWebsite }: HeroIntroProps) {
   const namaLokasi = namaWebsite.replace(/^UMKM\s+/i, "");
 
   return (
-    <section
-      className="
-        relative isolate overflow-hidden
-        bg-brand-dark
-        text-white
-      "
-    >
+    <section className="relative isolate overflow-hidden bg-brand-dark text-white">
+      {/* =====================================================
+          BACKGROUND GLOW
+      ====================================================== */}
+
       <div
         aria-hidden="true"
         className="
-          pointer-events-none absolute
-          -right-32 -top-32
-          h-105 w-105
+          pointer-events-none
+          absolute
+          -right-32
+          -top-32
+          -z-20
+          h-104
+          w-104
           rounded-full
           bg-sky-300/20
           blur-3xl
@@ -52,18 +82,26 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
       <div
         aria-hidden="true"
         className="
-          pointer-events-none absolute
-          -left-40 -bottom-45
-          h-120 w-120
+          pointer-events-none
+          absolute
+          -bottom-40
+          -left-40
+          -z-20
+          h-120
+          w-120
           rounded-full
           bg-blue-950/30
           blur-3xl
         "
       />
 
+      {/* =====================================================
+          SMALL BUBBLES
+      ====================================================== */}
+
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
         {bubbles.map((bubble, index) => (
           <span
@@ -72,9 +110,8 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
               absolute
               rounded-full
               border
-              border-white/20
+              border-white/15
               bg-white
-              blur-[0.2px]
             "
             style={{
               width: bubble.size,
@@ -87,114 +124,95 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
         ))}
       </div>
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none absolute
-          right-[14%] top-[16%]
-          h-40 w-40
-          rounded-full
-          border border-white/10
-        "
-      />
+      {/* =====================================================
+          LARGE OUTLINE BUBBLES
+      ====================================================== */}
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none absolute
-          right-[20%] top-[22%]
-          h-24 w-24
-          rounded-full
-          border border-white/10
-        "
-      />
+      {outlinedBubbles.map((position) => (
+        <div
+          key={position}
+          aria-hidden="true"
+          className={`
+            pointer-events-none
+            absolute
+            -z-10
+            rounded-full
+            border
+            border-white/10
+            ${position}
+          `}
+        />
+      ))}
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none absolute
-          bottom-[8%] right-[32%]
-          hidden
-          h-20 w-20
-          rounded-full
-          border border-white/10
-          sm:block
-        "
-      />
+      {/* =====================================================
+          MAIN CONTAINER
+      ====================================================== */}
 
       <div
         className="
-          relative mx-auto
-          min-h-162.5
+          relative
+          mx-auto
+          min-h-147.5
           max-w-7xl
           px-5
           py-10
-          sm:min-h-145
+          sm:min-h-142.5
           sm:px-8
           sm:py-14
-          lg:min-h-142.5
+          lg:min-h-140
           lg:px-10
           lg:py-16
         "
       >
+        {/* ===================================================
+            LEFT CONTENT
+        ==================================================== */}
+
         <div
           className="
-            relative z-20
-            w-[67%]
+            relative
+            z-20
+            w-[68%]
             max-w-2xl
             sm:w-[58%]
             lg:w-[53%]
           "
         >
-          <div
-            className="
-              inline-flex
-              items-center
-              gap-2
-              rounded-full
-              border
-              border-white/25
-              bg-white/10
-              px-3
-              py-1.5
-              text-[10px]
-              font-medium
-              text-white
-              backdrop-blur-sm
-              sm:px-3.5
-              sm:py-2
-              sm:text-xs
-            "
-          >
-          </div>
+          {/* Heading */}
 
           <h1
             className="
-              mt-5
+              mt-3
               text-[2.15rem]
               font-bold
-              leading-[1.02]
+              leading-none
               tracking-[-0.035em]
               text-white
               sm:mt-6
               sm:text-5xl
-              lg:text-[4.15rem]
+              sm:leading-[1.03]
+              lg:text-[4rem]
+              xl:text-[4.1rem]
             "
           >
-            <span className="block">Temukan Produk</span>
-            <span className="block">Lokal dari</span>
+            <span className="block">
+              Temukan Produk Lokal dari UMKM
+            </span>
+
             <span className="block text-sky-200">
               {namaLokasi}
             </span>
           </h1>
 
+          {/* Description */}
+
           <p
             className="
-              mt-5
+              mt-3
               max-w-xl
               text-xs
-              leading-6
-              text-white/80
+              leading-5
+              text-white
               sm:mt-6
               sm:text-sm
               sm:leading-7
@@ -202,113 +220,90 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
               lg:leading-8
             "
           >
-            Temukan berbagai produk berkualitas dari pelaku UMKM di sekitar
-            Anda. Dukung usaha lokal dan bantu ekonomi warga tumbuh bersama.
+            Temukan berbagai produk berkualitas dari UMKM di Kelurahan Taman. Dukung usaha lokal dan bantu ekonomi warga tumbuh bersama.
           </p>
+
+          {/* CTA */}
 
           <div
             className="
-              relative mx-auto
-              max-w-7xl
-              px-5
-              py-10
-              sm:px-8
-              sm:py-14
-              lg:min-h-142.5
-              lg:px-10
-              lg:py-16
+              mt-4
+              flex
+              max-w-[320px]
+              flex-col
+              gap-2
+              sm:mt-7
+              sm:max-w-none
+              sm:flex-row
+              sm:gap-3
             "
           >
-            {/* CONTENT TEXT */}
-            <div
+            <Link
+              href="/produk"
               className="
-                relative z-20
-                w-[67%]
-                max-w-2xl
-                sm:w-[58%]
-                lg:w-[53%]
-              "
-            >
-              {/* badge */}
-              {/* heading */}
-              {/* description */}
-            </div>
-
-            {/* CTA */}
-            <div
-              className="
-                relative
-                z-30
-                mt-6
-                flex
+                inline-flex
                 w-full
-                max-w-[320px]
-                flex-col
-                gap-2.5
-                sm:max-w-none
-                sm:flex-row
-                sm:gap-3
+                items-center
+                justify-center
+                gap-2
+                rounded-xl
+                bg-white
+                px-4
+                py-3
+                text-xs
+                font-semibold
+                text-brand-dark
+                shadow-lg
+                transition-all
+                duration-200
+                hover:-translate-y-0.5
+                hover:bg-slate-50
+                hover:shadow-xl
+                sm:w-auto
+                sm:px-5
+                sm:py-3.5
+                sm:text-sm
               "
             >
-              <Link
-                href="/produk"
-                className="
-                  inline-flex
-                  w-full
-                  items-center
-                  justify-center
-                  gap-2
-                  rounded-xl
-                  bg-white
-                  px-4
-                  py-3
-                  text-xs
-                  font-semibold
-                  text-brand-dark
-                  shadow-lg
-                  transition
-                  hover:bg-slate-50
-                  sm:w-auto
-                  sm:px-5
-                  sm:py-3.5
-                  sm:text-sm
-                "
-              >
-                Jelajahi Produk
-                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              </Link>
+              Jelajahi Produk
 
-              <Link
-                href="/umkm"
-                className="
-                  inline-flex
-                  w-full
-                  items-center
-                  justify-center
-                  gap-2
-                  rounded-xl
-                  border
-                  border-white/30
-                  bg-white/5
-                  px-4
-                  py-3
-                  text-xs
-                  font-semibold
-                  text-white
-                  backdrop-blur-sm
-                  transition
-                  hover:bg-white/10
-                  sm:w-auto
-                  sm:px-5
-                  sm:py-3.5
-                  sm:text-sm
-                "
-              >
-                Kenali UMKM Kami
-                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              </Link>
-            </div>
+              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            </Link>
+
+            <Link
+              href="/umkm"
+              className="
+                inline-flex
+                w-full
+                items-center
+                justify-center
+                gap-2
+                rounded-xl
+                border
+                border-white/30
+                bg-white/5
+                px-4
+                py-3
+                text-xs
+                font-semibold
+                text-white
+                backdrop-blur-sm
+                transition-all
+                duration-200
+                hover:bg-white/10
+                sm:w-auto
+                sm:px-5
+                sm:py-3.5
+                sm:text-sm
+              "
+            >
+              Kenali UMKM Kami
+
+              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            </Link>
           </div>
+
+          {/* Trust */}
 
           <div
             className="
@@ -336,143 +331,168 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
           </div>
         </div>
 
+        {/* ===================================================
+            PRODUCT PNG
+        ==================================================== */}
+
         <div
           className="
             pointer-events-none
             absolute
-            right-[-6%]
-            top-[-2%]
             z-10
-            h-[63%]
-            w-[58%]
-            sm:right-[-4%]
-            sm:top-[10%]
-            sm:h-[76%]
-            sm:w-[52%]
-            lg:right-[-2%]
-            lg:top-[8%]
-            lg:h-[88%]
-            lg:w-[50%]
+
+            /* MOBILE */
+            right-[-10%]
+            top-[15%]
+            h-[80%]
+            w-[72%]
+
+            /* SMALL */
+            sm:right-[-6%]
+            sm:top-[3%]
+            sm:h-[78%]
+            sm:w-[58%]
+
+            /* DESKTOP */
+            lg:right-[0%]
+            lg:top-[7%]
+            lg:h-[72%]
+            lg:w-[41%]
+
+            /* LARGE DESKTOP */
+            xl:right-[1%]
+            xl:top-[5%]
+            xl:h-[74%]
+            xl:w-[42%]
           "
         >
           <Image
-            src="/images/hero-product.png"
+            src="/images/hero-product1.png"
             alt="Produk UMKM Kelurahan Taman"
             fill
             priority
-            sizes="(max-width: 640px) 60vw, (max-width: 1024px) 52vw, 50vw"
+            sizes="
+              (max-width: 640px) 67vw,
+              (max-width: 1024px) 58vw,
+              42vw
+            "
             className="
               object-contain
-              object-bottom
-              drop-shadow-[0_25px_30px_rgba(0,0,0,0.18)]
+              object-top
+              drop-shadow-[0_22px_28px_rgba(0,0,0,0.14)]
             "
           />
         </div>
 
+        {/* ===================================================
+            QUALITY BADGE
+        ==================================================== */}
+
         <div
           className="
             absolute
-            right-[8%]
-            top-[14%]
+            right-[5%]
+            top-[17%]
             z-20
             hidden
             items-center
             gap-2
-            rounded-2xl
+            rounded-xl
             bg-white
             px-3
-            py-2.5
+            py-2
             text-brand-dark
-            shadow-xl
+            shadow-lg
             sm:flex
-            lg:right-[5%]
+            lg:right-[6%]
             lg:top-[17%]
-            lg:gap-3
-            lg:px-4
-            lg:py-3
           "
         >
           <div
             className="
               flex
-              h-8 w-8
+              h-8
+              w-8
               items-center
               justify-center
-              rounded-xl
+              rounded-lg
               bg-brand/10
-              lg:h-10
-              lg:w-10
             "
           >
-            <ShieldCheck className="h-4 w-4 text-brand lg:h-5 lg:w-5" />
+            <ShieldCheck className="h-4 w-4 text-brand" />
           </div>
 
           <div>
-            <p className="text-[10px] text-slate-500 lg:text-xs">
+            <p className="text-[10px] text-slate-500">
               Kualitas
             </p>
-            <p className="text-xs font-bold lg:text-sm">
+
+            <p className="text-xs font-bold">
               Produk Lokal
             </p>
           </div>
         </div>
 
+        {/* ===================================================
+            LOCAL BADGE
+        ==================================================== */}
+
         <div
           className="
             absolute
-            bottom-[18%]
-            right-[31%]
+            bottom-[13%]
+            right-[27%]
             z-20
             hidden
             items-center
             gap-2
-            rounded-2xl
+            rounded-xl
             bg-white
             px-3
-            py-2.5
+            py-2
             text-brand-dark
-            shadow-xl
+            shadow-lg
             sm:flex
-            lg:bottom-[15%]
-            lg:right-[32%]
-            lg:gap-3
-            lg:px-4
-            lg:py-3
+            lg:bottom-[13%]
+            lg:right-[28%]
           "
         >
           <div
             className="
               flex
-              h-8 w-8
+              h-8
+              w-8
               items-center
               justify-center
-              rounded-xl
+              rounded-lg
               bg-emerald-50
-              lg:h-10
-              lg:w-10
             "
           >
             <Heart
               className="
-                h-4 w-4
+                h-4
+                w-4
                 fill-emerald-500
                 text-emerald-500
-                lg:h-5
-                lg:w-5
               "
             />
           </div>
 
           <div>
-            <p className="text-[10px] text-slate-500 lg:text-xs">
+            <p className="text-[10px] text-slate-500">
               Dukung
             </p>
-            <p className="text-xs font-bold lg:text-sm">
+
+            <p className="text-xs font-bold">
               Warga Lokal
             </p>
           </div>
         </div>
       </div>
+
+      {/* =====================================================
+          BOTTOM CURVE
+      ====================================================== */}
 
       <div
         aria-hidden="true"
