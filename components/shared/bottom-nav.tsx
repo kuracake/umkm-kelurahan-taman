@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
   House,
@@ -32,25 +33,102 @@ const navItems = [
   },
 ];
 
+const HIDE_DELAY = 3000;
+
 export function BottomNav() {
   const pathname = usePathname();
 
-  // Jangan tampilkan bottom navigation pada halaman login admin.
+  const [visible, setVisible] = useState(true);
+
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearHideTimer = () => {
+    if (hideTimerRef.current) {
+      clearTimeout(hideTimerRef.current);
+      hideTimerRef.current = null;
+    }
+  };
+
+  const showAndResetTimer = () => {
+    setVisible(true);
+
+    clearHideTimer();
+
+    hideTimerRef.current = setTimeout(() => {
+      setVisible(false);
+    }, HIDE_DELAY);
+  };
+
+  useEffect(() => {
+    if (pathname === "/login") {
+      setVisible(false);
+      return;
+    }
+
+    showAndResetTimer();
+
+    const handleActivity = () => {
+      showAndResetTimer();
+    };
+
+    window.addEventListener("scroll", handleActivity, {
+      passive: true,
+    });
+
+    window.addEventListener("touchstart", handleActivity, {
+      passive: true,
+    });
+
+    window.addEventListener("touchmove", handleActivity, {
+      passive: true,
+    });
+
+    window.addEventListener("mousemove", handleActivity, {
+      passive: true,
+    });
+
+    window.addEventListener("click", handleActivity);
+
+    return () => {
+      clearHideTimer();
+
+      window.removeEventListener("scroll", handleActivity);
+      window.removeEventListener("touchstart", handleActivity);
+      window.removeEventListener("touchmove", handleActivity);
+      window.removeEventListener("mousemove", handleActivity);
+      window.removeEventListener("click", handleActivity);
+    };
+  }, [pathname]);
+
+  useEffect(() => {
+    return () => {
+      clearHideTimer();
+    };
+  }, []);
+
   if (pathname === "/login") {
     return null;
   }
 
   return (
     <nav
-      className="
+      className={`
         fixed
         inset-x-0
         bottom-0
         z-30
         px-4
         pb-[calc(env(safe-area-inset-bottom)+12px)]
+        transition-all
+        duration-500
+        ease-out
         sm:hidden
-      "
+        ${
+          visible
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-[120%] opacity-0"
+        }
+      `}
       aria-label="Navigasi utama"
     >
       <div
@@ -86,6 +164,7 @@ export function BottomNav() {
               prefetch={false}
               aria-label={item.label}
               aria-current={isActive ? "page" : undefined}
+              onClick={showAndResetTimer}
               className={`
                 flex
                 items-center
