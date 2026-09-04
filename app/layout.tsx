@@ -18,17 +18,23 @@ export const metadata: Metadata = {
   title: "UMKM Kelurahan Taman",
   description:
     "Katalog digital UMKM Kelurahan Taman. Temukan dan pesan langsung via WhatsApp.",
-  keywords: [
-    "Kelurahan Taman",
+    keywords: [
     "UMKM Kelurahan Taman",
-    "Taman Surabaya",
-    "jajanan tradisional Surabaya",
-    "UMKM Taman",
-    "kue basah Surabaya",
+    "UMKM Taman Sidoarjo",
+    "UMKM Sidoarjo",
+    "produk lokal Kelurahan Taman",
+    "produk UMKM Sidoarjo",
+    "kuliner Kelurahan Taman",
+    "jajanan lokal Sidoarjo",
+    "jajanan tradisional Sidoarjo",
+    "produk makanan Sidoarjo",
+    "produk minuman Sidoarjo",
+    "usaha lokal Kelurahan Taman",
+    "pelaku UMKM Kelurahan Taman",
   ],
   metadataBase: new URL("https://umkm-kelurahan-taman.vercel.app"),
   verification: {
-    google: "google-site-verification=NFv3AqrUizPPi_bFHHzd9fYBqTxRSi0CyBmwawXYAsU",
+    google: "KgBeAW9lYGz5P787qnpmvW4hCX2CJxbDTIrj2BB7Ybc",
   },
   openGraph: {
     title: "UMKM Kelurahan Taman",

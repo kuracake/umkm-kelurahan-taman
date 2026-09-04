@@ -16,7 +16,7 @@ export default async function TentangPage() {
       ) : (
         <p className="text-gray-500">
           UMKM Kelurahan Taman adalah katalog digital yang menghubungkan
-          pengunjung dengan UMKM warga Kelurahan Taman di sekitar wilayah Taman, Surabaya.
+          pengunjung dengan UMKM warga Kelurahan Taman di sekitar wilayah Taman, Sidoarjo.
           Website ini bukan marketplace, setiap pemesanan dilakukan langsung
           antara pembeli dan pemilik UMKM melalui WhatsApp.
         </p>
