@@ -3,15 +3,7 @@ import { kategoriService } from "@/features/kategori/services/kategori.service";
 import { Navbar } from "@/components/shared/navbar";
 import { BottomNav } from "@/components/shared/bottom-nav";
 import { Footer } from "@/components/shared/footer";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "UMKM Kelurahan Taman",
-  description: "Platform untuk mengenal dan menemukan produk UMKM lokal Kelurahan Taman.",
-  icons: {
-    icon: "/logo.png",
-  },
-};
 
 export default async function PublicLayout({
   children,
