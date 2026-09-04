@@ -1,5 +1,28 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail, ArrowRight, Store } from "lucide-react";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
+import {
+  ArrowRight,
+  MapPin,
+  Mail,
+  Phone,
+  MessageCircle,
+} from "lucide-react";
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect height="17" rx="4" stroke="currentColor" strokeWidth="2" width="17" x="3.5" y="3.5" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.5" cy="6.5" fill="currentColor" r="1" />
+    </svg>
+  );
+}
 
 type FooterProps = {
   namaWebsite: string;
@@ -18,138 +41,362 @@ export function Footer({
   instagram = "@umkmtaman",
   email = "info@umkmtaman.id",
 }: FooterProps) {
-  return (
-    <footer className="bg-brand-dark">
-      {/* CTA */}
-      <div className="mx-auto max-w-6xl px-4 pt-10 sm:pt-14">
-        <div className="relative overflow-hidden rounded-3xl bg-white px-6 py-8 shadow-xl sm:px-10 sm:py-10">
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-brand-light sm:h-24 sm:w-24">
-              <Store className="h-10 w-10 text-brand" />
-            </div>
+  const instagramUsername = instagram.replace("@", "");
 
-            <div className="flex-1 text-center sm:text-left">
-              <h2 className="text-lg font-bold tracking-tight text-gray-900 sm:text-xl">
-                Punya usaha di {alamat}?
-              </h2>
-              <p className="mt-1 text-sm leading-relaxed text-gray-600 sm:text-base">
-                Mari kenalkan produkmu kepada lebih banyak masyarakat dan
-                tumbuh bersama {namaWebsite}.
+  return (
+    <footer className="bg-brand-dark text-white">
+      {/* =========================================================
+          CTA
+      ========================================================== */}
+
+      <div className="mx-auto max-w-7xl px-5 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pt-12">
+        <div
+          className="
+            overflow-hidden
+            rounded-2xl
+            border border-white/10
+            bg-white/8
+            px-5
+            py-6
+            sm:rounded-3xl
+            sm:px-8
+            sm:py-8
+            lg:px-10
+          "
+        >
+          <div
+            className="
+              flex
+              flex-col
+              gap-5
+              sm:flex-row
+              sm:items-center
+              sm:justify-between
+            "
+          >
+            {/* CTA text */}
+
+            <div className="max-w-xl">
+              <p className="text-xs font-semibold uppercase tracking-wide text-sky-200">
+                Bergabung bersama kami
               </p>
 
-              <Link
-                href="/kontak"
-                className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-[0_6px_16px_-4px_rgba(14,165,233,0.4)] transition-transform duration-200 hover:-translate-y-0.5"
-              >
-                Daftarkan UMKM Anda
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+              <h2 className="mt-1.5 text-xl font-bold tracking-tight text-white sm:text-2xl">
+                Punya usaha di {alamat}?
+              </h2>
+
+              <p className="mt-2 max-w-lg text-sm leading-6 text-white/70 sm:text-base sm:leading-7">
+                Kenalkan produkmu kepada lebih banyak masyarakat dan tumbuh
+                bersama {namaWebsite}.
+              </p>
             </div>
+
+            {/* CTA button */}
+
+            <Link
+              href="/kontak"
+              className="
+                inline-flex
+                shrink-0
+                items-center
+                justify-center
+                gap-2
+                rounded-xl
+                bg-white
+                px-5
+                py-3
+                text-sm
+                font-semibold
+                text-brand-dark
+                shadow-sm
+                transition-all
+                duration-200
+                hover:-translate-y-0.5
+                hover:bg-slate-50
+                hover:shadow-md
+                sm:px-6
+                sm:py-3.5
+              "
+            >
+              Daftarkan UMKM
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Footer links */}
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 sm:gap-8">
-          {/* Brand */}
-          <div className="col-span-2 sm:col-span-1">
-            <div className="flex items-center gap-2">
-              <Store className="h-5 w-5 text-white" />
-              <span className="text-sm font-bold text-white">{namaWebsite}</span>
-            </div>
-            <p className="mt-3 max-w-50 text-xs leading-relaxed text-blue-100/80 sm:text-sm">
-              Platform untuk mengenal dan menemukan produk UMKM lokal {alamat}.
+      {/* =========================================================
+          MAIN FOOTER
+      ========================================================== */}
+
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+        <div
+          className="
+            grid
+            grid-cols-1
+            gap-10
+            sm:grid-cols-2
+            lg:grid-cols-[1.3fr_0.8fr_1fr_1.1fr]
+            lg:gap-12
+          "
+        >
+          {/* =====================================================
+              BRAND
+          ====================================================== */}
+
+          <div>
+            <Link
+              href="/"
+              className="inline-flex items-center text-base font-bold tracking-tight text-white transition-colors hover:text-sky-200"
+            >
+              {namaWebsite}
+            </Link>
+
+            <p className="mt-3 max-w-sm text-sm leading-6 text-white/65">
+              Platform untuk mengenal dan menemukan produk UMKM lokal{" "}
+              {alamat}.
             </p>
 
-            <div className="mt-4 flex items-center gap-2.5">
+            {/* Social */}
+
+            <div className="mt-5 flex items-center gap-2.5">
               <a
-                href={`https://instagram.com/${instagram.replace("@", "")}`}
+                href={`https://instagram.com/${instagramUsername}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white hover:bg-white/10 hover:text-white font-bold text-xs"
+                className="
+                  flex
+                  h-9
+                  w-9
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-white/15
+                  text-white/75
+                  transition-all
+                  duration-200
+                  hover:border-white/30
+                  hover:bg-white/10
+                  hover:text-white
+                "
               >
-                @
+                <FaInstagram className="h-5 w-5" />
               </a>
+
               <a
                 href={`https://wa.me/${telepon.replace(/\D/g, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white hover:bg-white/10 hover:text-white"
+                className="
+                  flex
+                  h-9
+                  w-9
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-white/15
+                  text-xs
+                  font-semibold
+                  text-white/75
+                  transition-all
+                  duration-200
+                  hover:border-white/30
+                  hover:bg-white/10
+                  hover:text-white
+                "
               >
-                <Phone className="h-4 w-4" />
+                <FaWhatsapp className="h-5 w-5" />
               </a>
+
               <a
                 href={`mailto:${email}`}
                 aria-label="Email"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white hover:bg-white/10 hover:text-white"
+                className="
+                  flex
+                  h-9
+                  w-9
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-white/15
+                  text-white/75
+                  transition-all
+                  duration-200
+                  hover:border-white/30
+                  hover:bg-white/10
+                  hover:text-white
+                "
               >
                 <Mail className="h-4 w-4" />
               </a>
             </div>
           </div>
 
-          {/* Navigasi */}
+          {/* =====================================================
+              NAVIGASI
+          ====================================================== */}
+
           <div>
-            <h3 className="text-sm font-bold text-white">Navigasi</h3>
-            <ul className="mt-3.5 space-y-2.5 text-sm text-blue-100/80">
-              <li><Link href="/" className="transition-colors hover:text-white">Beranda</Link></li>
-              <li><Link href="/produk" className="transition-colors hover:text-white">Produk</Link></li>
-              <li><Link href="/umkm" className="transition-colors hover:text-white">UMKM</Link></li>
-              <li><Link href="/tentang" className="transition-colors hover:text-white">Tentang Kami</Link></li>
+            <h3 className="text-sm font-semibold text-white">
+              Navigasi
+            </h3>
+
+            <ul className="mt-4 space-y-3">
+              <li>
+                <Link
+                  href="/"
+                  className="text-sm text-white/65 transition-colors hover:text-white"
+                >
+                  Beranda
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/produk"
+                  className="text-sm text-white/65 transition-colors hover:text-white"
+                >
+                  Produk
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/umkm"
+                  className="text-sm text-white/65 transition-colors hover:text-white"
+                >
+                  UMKM
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Kategori — chip */}
+          {/* =====================================================
+              KATEGORI
+          ====================================================== */}
+
           <div>
-            <h3 className="text-sm font-bold text-white">Kategori</h3>
-            <div className="mt-3.5 flex flex-wrap gap-2">
+            <h3 className="text-sm font-semibold text-white">
+              Kategori
+            </h3>
+
+            <ul className="mt-4 space-y-3">
               {kategoris.map((kategori) => (
-                <Link
-                  key={kategori.id}
-                  href={`/produk?kategori=${kategori.id}`}
-                  prefetch={false}
-                  className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-blue-100/90 transition-colors hover:border-white hover:bg-white/10 hover:text-white"
-                >
-                  {kategori.nama}
-                </Link>
+                <li key={kategori.id}>
+                  <Link
+                    href={`/produk?kategori=${kategori.id}`}
+                    prefetch={false}
+                    className="
+                      text-sm
+                      text-white/65
+                      transition-colors
+                      hover:text-white
+                    "
+                  >
+                    {kategori.nama}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          {/* Kontak */}
-          <div className="col-span-2 sm:col-span-1">
-            <h3 className="text-sm font-bold text-white">Kontak Kami</h3>
-            <ul className="mt-3.5 space-y-3 text-sm text-blue-100/80">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-white/70" />
-                <span className="leading-relaxed">{alamat}</span>
+          {/* =====================================================
+              KONTAK
+          ====================================================== */}
+
+          <div>
+            <h3 className="text-sm font-semibold text-white">
+              Hubungi Kami
+            </h3>
+
+            <ul className="mt-4 space-y-4">
+              <li className="flex items-start gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-sky-200" />
+
+                <span className="text-sm leading-6 text-white/65">
+                  {alamat}
+                </span>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Phone className="h-4 w-4 shrink-0 text-white/70" />
-                {telepon}
+
+              <li className="flex items-center gap-3">
+                <Phone className="h-4 w-4 shrink-0 text-sky-200" />
+
+                <a
+                  href={`https://wa.me/${telepon.replace(/\D/g, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    text-sm
+                    text-white/65
+                    transition-colors
+                    hover:text-white
+                  "
+                >
+                  {telepon}
+                </a>
               </li>
-              <li className="flex items-center gap-2.5">
-                <span className="text-xs text-white/70">📱</span>
-                <a href={`https://instagram.com/${instagram.replace("@", "")}`} target="_blank" rel="noopener noreferrer" className="text-blue-100/80 hover:text-white hover:underline">{instagram}</a>
+
+              <li className="flex items-start gap-3">
+                <InstagramIcon className="mt-0.5 h-4 w-4 shrink-0 text-sky-200" />
+
+                <a
+                  href={`https://instagram.com/${instagramUsername}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    text-sm
+                    text-white/65
+                    transition-colors
+                    hover:text-white
+                  "
+                >
+                  {instagram}
+                </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-white/70" />
-                <span className="break-all leading-relaxed">{email}</span>
+
+              <li className="flex items-start gap-3">
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-sky-200" />
+
+                <a
+                  href={`mailto:${email}`}
+                  className="
+                    break-all
+                    text-sm
+                    leading-6
+                    text-white/65
+                    transition-colors
+                    hover:text-white
+                  "
+                >
+                  {email}
+                </a>
               </li>
             </ul>
           </div>
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="border-t border-white/10 py-5">
-        <p className="px-4 text-center text-xs leading-relaxed text-blue-100/70">
-          © {new Date().getFullYear()} {namaWebsite}. Mendukung produk lokal,
-          menguatkan ekonomi masyarakat.
-        </p>
+      {/* =========================================================
+          COPYRIGHT
+      ========================================================== */}
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-5 py-5 sm:px-8 lg:px-10">
+          <div className="flex flex-col gap-2 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+            <p className="text-xs leading-5 text-white/50">
+              © {new Date().getFullYear()} {namaWebsite}
+            </p>
+
+            <p className="text-xs leading-5 text-white/50">
+              Mendukung produk lokal, menguatkan ekonomi masyarakat.
+            </p>
+          </div>
+        </div>
       </div>
     </footer>
   );
