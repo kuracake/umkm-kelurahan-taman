@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://umkm-kelurahan-taman.vercel.app"),
   verification: {
-    google: "KgBeAW9lYGz5P787qnpmvW4hCX2CJxbDTIrj2BB7Ybc",
+    google: "google-site-verification=NFv3AqrUizPPi_bFHHzd9fYBqTxRSi0CyBmwawXYAsU",
   },
   openGraph: {
     title: "UMKM Kelurahan Taman",
