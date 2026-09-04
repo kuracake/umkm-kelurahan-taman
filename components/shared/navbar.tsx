@@ -27,7 +27,7 @@ export function Navbar({ namaWebsite }: { namaWebsite: string }) {
   };
 
   return (
-    <header className="sticky top-0 z-20 w-full overflow-x-hidden border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur-sm">
+    <header className="sticky top-0 z-20 w-full border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur-sm">
       <div className="mx-auto grid max-w-6xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 px-4 py-2.5 sm:gap-4">
         {/* Kiri — hamburger (mobile) / nav (desktop) */}
         <div className="flex min-w-0 items-center">
@@ -51,7 +51,7 @@ export function Navbar({ namaWebsite }: { namaWebsite: string }) {
           </ul>
         </div>
 
-        {/* Tengah — logo, meluber vertikal keluar header, lebar tetap dijaga aman */}
+        {/* Tengah — logo, meluber vertikal keluar header */}
         <div className="flex min-w-0 justify-center">
           <Link href="/" className="flex min-w-0 items-center">
             <Image
