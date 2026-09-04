@@ -15,10 +15,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "UMKM Kelurahan Taman",
+  metadataBase: new URL(
+    "https://umkm-kelurahan-taman.vercel.app"
+  ),
+
+  title: {
+    default: "UMKM Kelurahan Taman | Produk Lokal Sidoarjo",
+    template: "%s | UMKM Kelurahan Taman",
+  },
+
   description:
-    "Katalog digital UMKM Kelurahan Taman. Temukan dan pesan langsung via WhatsApp.",
-    keywords: [
+    "Temukan produk dan UMKM lokal Kelurahan Taman, Sidoarjo. Jelajahi makanan, minuman, camilan, dan berbagai produk usaha warga sekitar.",
+
+  keywords: [
     "UMKM Kelurahan Taman",
     "UMKM Taman Sidoarjo",
     "UMKM Sidoarjo",
@@ -32,22 +41,26 @@ export const metadata: Metadata = {
     "usaha lokal Kelurahan Taman",
     "pelaku UMKM Kelurahan Taman",
   ],
-  metadataBase: new URL("https://umkm-kelurahan-taman.vercel.app"),
+
   verification: {
-    google: "KgBeAW9lYGz5P787qnpmvW4hCX2CJxbDTIrj2BB7Ybc",
+    google:
+      "KgBeAW9lYGz5P787qnpmvW4hCX2CJxbDTIrj2BB7Ybc",
   },
+
   openGraph: {
-    title: "UMKM Kelurahan Taman",
-    description: "Katalog digital UMKM Kelurahan Taman. Temukan dan pesan langsung via WhatsApp.",
-    url: "https://umkm-kelurahan-taman.vercel.app",
+    title: "UMKM Kelurahan Taman | Produk Lokal Sidoarjo",
+    description:
+      "Temukan produk dan UMKM lokal Kelurahan Taman, Sidoarjo.",
     siteName: "UMKM Kelurahan Taman",
     locale: "id_ID",
     type: "website",
   },
+
   robots: {
     index: true,
     follow: true,
   },
+
   icons: {
     icon: "/logo.png",
   },
@@ -59,7 +72,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${baloo2.variable} ${inter.variable} h-full antialiased`}>
+    <html
+      lang="id"
+      className={`${baloo2.variable} ${inter.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex w-full flex-col font-(family-name:--font-body)">
         <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>

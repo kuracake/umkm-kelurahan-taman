@@ -1,5 +1,15 @@
 import Image from "next/image";
 import { umkmService } from "@/features/umkm/services/umkm.service";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "UMKM Kelurahan Taman",
+  description:
+    "Kenali pelaku UMKM di Kelurahan Taman, Sidoarjo, dan temukan usaha lokal beserta produk yang mereka tawarkan.",
+  alternates: {
+    canonical: "/umkm",
+  },
+};
 
 
 export default async function UmkmListPage() {

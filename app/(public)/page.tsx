@@ -12,6 +12,17 @@ import { HeroIntro } from "@/components/shared/hero-intro";
 import { HeroBanner } from "@/components/shared/hero-banner";
 import { KategoriProdukCarousel } from "@/components/shared/kategori-produk-carousel";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "UMKM Kelurahan Taman | Produk Lokal Sidoarjo",
+  description:
+    "Temukan produk dan UMKM lokal Kelurahan Taman, Sidoarjo. Jelajahi makanan, minuman, camilan, dan berbagai produk usaha warga sekitar.",
+  alternates: {
+    canonical: "/",
+  },
+};
+
 const KATEGORI_ICON: Record<string, string> = {
   "Camilan Kering": "🍘",
   Gorengan: "🍤",

@@ -8,6 +8,16 @@ import { FaWhatsapp } from "react-icons/fa";
 
 import { websiteSettingService } from "@/features/website-setting/services/website-setting.service";
 import { resolveMapsEmbedUrl } from "@/lib/maps";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Kontak UMKM Kelurahan Taman",
+  description:
+    "Hubungi UMKM Kelurahan Taman melalui WhatsApp, email, atau kunjungi lokasi yang tersedia di Google Maps.",
+  alternates: {
+    canonical: "/kontak",
+  },
+};
 
 export default async function KontakPage() {
   const setting = await websiteSettingService.get();

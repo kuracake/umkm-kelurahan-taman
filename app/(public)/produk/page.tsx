@@ -2,6 +2,17 @@ import { produkService } from "@/features/produk/services/produk.service";
 import { kategoriService } from "@/features/kategori/services/kategori.service";
 import { ProductCard } from "@/components/shared/product-card";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Produk UMKM Kelurahan Taman",
+  description:
+    "Jelajahi berbagai produk UMKM Kelurahan Taman, mulai dari camilan, gorengan, kue, makanan berat, hingga minuman lokal.",
+  alternates: {
+    canonical: "/produk",
+  },
+};
+
 
 export default async function ProdukListPage({
   searchParams,
