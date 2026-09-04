@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { produkService } from "@/features/produk/services/produk.service";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://umkm-rw06-wonorejo.vercel.app";
+  const baseUrl = "https://https://umkm-kelurahan-taman.vercel.app";
   const produks = await produkService.getActive();
 
   const produkUrls = produks.map((produk) => ({

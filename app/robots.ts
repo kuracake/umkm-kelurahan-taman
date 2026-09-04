@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/dashboard", "/login", "/api"],
     },
-    sitemap: "https://umkm-rw06-wonorejo.vercel.app/sitemap.xml",
+    sitemap: "https://umkm-kelurahan-taman.vercel.app/sitemap.xml",
   };
 }
