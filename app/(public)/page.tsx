@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-const BASE_URL = "https://umkm-kelurahan-taman.vercel.app";
+const BASE_URL = "https://www.umkm-kelurahan-taman.my.id";
 
 const KATEGORI_ICON: Record<string, string> = {
   "Camilan Kering": "🍘",

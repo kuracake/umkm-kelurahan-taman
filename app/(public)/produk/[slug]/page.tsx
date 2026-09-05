@@ -8,7 +8,7 @@ import { OrderSection } from "@/features/produk/components/order-section";
 import { ProdukGallery } from "@/features/produk/components/produk-gallery";
 import { ProductCard } from "@/components/shared/product-card";
 
-const BASE_URL = "https://umkm-kelurahan-taman.vercel.app";
+const BASE_URL = "https://www.umkm-kelurahan-taman.my.id";
 
 export async function generateMetadata({
   params,

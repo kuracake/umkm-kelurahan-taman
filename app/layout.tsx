@@ -16,7 +16,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    "https://umkm-kelurahan-taman.vercel.app"
+    "https://www.umkm-kelurahan-taman.my.id"
   ),
 
   title: {
