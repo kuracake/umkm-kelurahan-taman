@@ -188,16 +188,16 @@ export function Navbar({
               src="/favicon.png"
               alt={namaWebsite}
               width={400}
-              height={160}
+              height={400}
               priority
               className="
-                -my-6
-                h-24
+                -my-4
+                h-16
                 w-auto
                 max-w-full
                 object-contain
-                sm:-my-8
-                sm:h-32
+                sm:-my-5
+                sm:h-20
               "
             />
           </Link>
