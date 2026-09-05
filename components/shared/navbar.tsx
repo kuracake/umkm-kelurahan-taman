@@ -185,7 +185,7 @@ export function Navbar({
             aria-label={`Beranda ${namaWebsite}`}
           >
             <Image
-              src="/logo.png"
+              src="/favicon.png"
               alt={namaWebsite}
               width={400}
               height={160}
