@@ -38,7 +38,7 @@ export async function toggleProdukActiveAction(id: string, isActive: boolean) {
     revalidateTag("produk","max");
     if (updated?.slug) revalidatePath(`/produk/${updated.slug}`);
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Gagal mengubah status" };
   }
 }
@@ -78,7 +78,7 @@ export async function deleteProdukAction(id: string) {
     revalidatePath("/produk");
     revalidateTag("produk", "max");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Gagal menghapus produk" };
   }
 }

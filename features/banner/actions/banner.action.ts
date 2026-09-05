@@ -29,7 +29,7 @@ export async function toggleBannerActiveAction(id: string, isActive: boolean) {
     revalidatePath("/dashboard/banner");
     revalidatePath("/");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Gagal mengubah status" };
   }
 }
@@ -40,7 +40,7 @@ export async function deleteBannerAction(id: string) {
     revalidatePath("/dashboard/banner");
     revalidatePath("/");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Gagal menghapus banner" };
   }
 }

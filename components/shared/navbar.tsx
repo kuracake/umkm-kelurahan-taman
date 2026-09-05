@@ -80,10 +80,6 @@ export function Navbar({
         backdrop-blur-md
       "
     >
-      {/* =====================================================
-          MAIN HEADER
-      ====================================================== */}
-
       <div
         className="
           mx-auto
@@ -97,13 +93,7 @@ export function Navbar({
           sm:gap-4
         "
       >
-        {/* ===================================================
-            LEFT
-        ==================================================== */}
-
         <div className="flex min-w-0 items-center">
-          {/* Mobile back / hamburger */}
-
           <button
             type="button"
             onClick={
@@ -148,8 +138,6 @@ export function Navbar({
             )}
           </button>
 
-          {/* Desktop navigation */}
-
           <nav
             className="
               hidden
@@ -190,10 +178,6 @@ export function Navbar({
           </nav>
         </div>
 
-        {/* ===================================================
-            CENTER LOGO
-        ==================================================== */}
-
         <div className="flex min-w-0 justify-center">
           <Link
             href="/"
@@ -219,13 +203,7 @@ export function Navbar({
           </Link>
         </div>
 
-        {/* ===================================================
-            RIGHT
-        ==================================================== */}
-
         <div className="flex min-w-0 items-center justify-end gap-2">
-          {/* Desktop search */}
-
           <form
             onSubmit={handleSearch}
             className="hidden sm:flex"
@@ -255,8 +233,6 @@ export function Navbar({
               "
             />
           </form>
-
-          {/* Mobile search */}
 
           <button
             type="button"
@@ -292,8 +268,6 @@ export function Navbar({
             )}
           </button>
 
-          {/* Desktop admin */}
-
           <Link
             href="/login"
             className="
@@ -316,10 +290,6 @@ export function Navbar({
           </Link>
         </div>
       </div>
-
-      {/* =====================================================
-          MOBILE SEARCH
-      ====================================================== */}
 
       {mobileSearchOpen && (
         <div
@@ -378,10 +348,6 @@ export function Navbar({
           </form>
         </div>
       )}
-
-      {/* =====================================================
-          MOBILE ADMIN MENU
-      ====================================================== */}
 
       {mobileMenuOpen && !isLoginPage && (
         <div

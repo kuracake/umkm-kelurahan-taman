@@ -7,7 +7,6 @@ import { deleteProdukAction, toggleProdukActiveAction } from "../actions/produk.
 import type { Produk, Umkm, Kategori } from "@prisma/client";
 import Link from "next/link";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
-import { Pencil, Trash2 } from "lucide-react";
 
 type ProdukWithRelations = Produk & { umkm: Umkm; kategori: Kategori };
 

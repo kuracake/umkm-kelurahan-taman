@@ -1,4 +1,3 @@
-// hero-intro.tsx
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -11,10 +10,6 @@ import {
 type HeroIntroProps = {
   namaWebsite: string;
 };
-
-/* =========================================================
-   BUBBLES
-========================================================= */
 
 const bubbles = [
   { size: 14, top: "8%", left: "72%", opacity: 0.18 },
@@ -39,10 +34,6 @@ const bubbles = [
   { size: 12, top: "91%", left: "87%", opacity: 0.14 },
 ];
 
-/* =========================================================
-   OUTLINED BUBBLES
-========================================================= */
-
 const outlinedBubbles = [
   "right-[13%] top-[16%] h-40 w-40",
   "right-[19%] top-[22%] h-24 w-24",
@@ -50,19 +41,11 @@ const outlinedBubbles = [
   "right-[34%] top-[36%] h-16 w-16",
 ];
 
-/* =========================================================
-   COMPONENT
-========================================================= */
-
 export function HeroIntro({ namaWebsite }: HeroIntroProps) {
   const namaLokasi = namaWebsite.replace(/^UMKM\s+/i, "");
 
   return (
     <section className="relative isolate overflow-hidden bg-brand-dark text-white">
-      {/* =====================================================
-          BACKGROUND GLOW
-      ====================================================== */}
-
       <div
         aria-hidden="true"
         className="
@@ -95,10 +78,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
         "
       />
 
-      {/* =====================================================
-          SMALL BUBBLES
-      ====================================================== */}
-
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
@@ -124,10 +103,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
         ))}
       </div>
 
-      {/* =====================================================
-          LARGE OUTLINE BUBBLES
-      ====================================================== */}
-
       {outlinedBubbles.map((position) => (
         <div
           key={position}
@@ -143,10 +118,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
           `}
         />
       ))}
-
-      {/* =====================================================
-          MAIN CONTAINER
-      ====================================================== */}
 
       <div
         className="
@@ -164,10 +135,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
           lg:py-16
         "
       >
-        {/* ===================================================
-            LEFT CONTENT
-        ==================================================== */}
-
         <div
           className="
             relative
@@ -178,8 +145,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
             lg:w-[53%]
           "
         >
-          {/* Heading */}
-
           <h1
             className="
               mt-3
@@ -204,8 +169,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
             </span>
           </h1>
 
-          {/* Description */}
-
           <p
             className="
               mt-3
@@ -222,8 +185,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
           >
             Temukan berbagai produk berkualitas dari UMKM di Kelurahan Taman. Dukung usaha lokal dan bantu ekonomi warga tumbuh bersama.
           </p>
-
-          {/* CTA */}
 
           <div
             className="
@@ -266,7 +227,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
               "
             >
               Jelajahi Produk
-
               <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </Link>
 
@@ -303,8 +263,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
             </Link>
           </div>
 
-          {/* Trust */}
-
           <div
             className="
               mt-5
@@ -331,35 +289,27 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
           </div>
         </div>
 
-        {/* ===================================================
-            PRODUCT PNG
-        ==================================================== */}
-
         <div
           className="
             pointer-events-none
             absolute
             z-10
 
-            /* MOBILE */
             right-[-10%]
             top-[15%]
             h-[80%]
             w-[72%]
 
-            /* SMALL */
             sm:right-[-6%]
             sm:top-[3%]
             sm:h-[78%]
             sm:w-[58%]
 
-            /* DESKTOP */
             lg:right-[0%]
             lg:top-[7%]
             lg:h-[72%]
             lg:w-[41%]
 
-            /* LARGE DESKTOP */
             xl:right-[1%]
             xl:top-[5%]
             xl:h-[74%]
@@ -383,10 +333,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
             "
           />
         </div>
-
-        {/* ===================================================
-            QUALITY BADGE
-        ==================================================== */}
 
         <div
           className="
@@ -432,10 +378,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
             </p>
           </div>
         </div>
-
-        {/* ===================================================
-            LOCAL BADGE
-        ==================================================== */}
 
         <div
           className="
@@ -489,10 +431,6 @@ export function HeroIntro({ namaWebsite }: HeroIntroProps) {
           </div>
         </div>
       </div>
-
-      {/* =====================================================
-          BOTTOM CURVE
-      ====================================================== */}
 
       <div
         aria-hidden="true"

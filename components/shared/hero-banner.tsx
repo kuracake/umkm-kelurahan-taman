@@ -78,10 +78,6 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
   return (
     <section className="bg-[#fffdf8] px-5 py-6 sm:px-8 sm:py-8 lg:px-10 lg:py-10">
       <div className="relative mx-auto max-w-7xl">
-        {/* =====================================================
-            BANNER
-        ====================================================== */}
-
         <div
           className="
             relative
@@ -139,8 +135,6 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
             ))}
           </div>
 
-          {/* Indicator tetap di dalam banner */}
-
           {hasMultiple && (
             <div
               className="
@@ -186,10 +180,6 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
           )}
         </div>
 
-        {/* =====================================================
-            PREVIOUS BUTTON - OUTSIDE BANNER
-        ====================================================== */}
-
         {hasMultiple && (
           <button
             type="button"
@@ -225,10 +215,6 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
             <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
         )}
-
-        {/* =====================================================
-            NEXT BUTTON - OUTSIDE BANNER
-        ====================================================== */}
 
         {hasMultiple && (
           <button

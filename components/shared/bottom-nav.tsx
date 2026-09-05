@@ -100,12 +100,6 @@ export function BottomNav() {
     };
   }, [pathname]);
 
-  useEffect(() => {
-    return () => {
-      clearHideTimer();
-    };
-  }, []);
-
   if (pathname === "/login") {
     return null;
   }

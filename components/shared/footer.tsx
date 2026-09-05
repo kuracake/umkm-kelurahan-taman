@@ -5,7 +5,6 @@ import {
   MapPin,
   Mail,
   Phone,
-  MessageCircle,
 } from "lucide-react";
 
 function InstagramIcon({ className }: { className?: string }) {

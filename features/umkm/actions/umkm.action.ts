@@ -33,7 +33,7 @@ export async function toggleUmkmActiveAction(id: string, isActive: boolean) {
     revalidatePath("/");
     revalidatePath("/umkm");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Gagal mengubah status" };
   }
 }
@@ -69,7 +69,7 @@ export async function deleteUmkmAction(id: string) {
     revalidatePath("/");
     revalidatePath("/umkm");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Gagal menghapus UMKM" };
   }
 }
