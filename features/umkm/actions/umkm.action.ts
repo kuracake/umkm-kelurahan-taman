@@ -2,9 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { umkmService } from "../services/umkm.service";
+import { requireAdmin } from "@/lib/require-admin";
 
 export async function createUmkmAction(formData: FormData) {
   try {
+    await requireAdmin();
+
     const data = {
       namaUmkm: formData.get("namaUmkm") as string,
       namaPemilik: formData.get("namaPemilik") as string,
@@ -21,6 +24,9 @@ export async function createUmkmAction(formData: FormData) {
     revalidatePath("/umkm");
     return { success: true };
   } catch (error) {
+    if (error instanceof Error && error.name === "UnauthorizedError") {
+      return { success: false, error: "Unauthorized" };
+    }
     console.error(error);
     return { success: false, error: "Gagal menambah UMKM" };
   }
@@ -28,18 +34,25 @@ export async function createUmkmAction(formData: FormData) {
 
 export async function toggleUmkmActiveAction(id: string, isActive: boolean) {
   try {
+    await requireAdmin();
+
     await umkmService.toggleActive(id, isActive);
     revalidatePath("/dashboard/umkm");
     revalidatePath("/");
     revalidatePath("/umkm");
     return { success: true };
-  } catch {
+  } catch (error) {
+    if (error instanceof Error && error.name === "UnauthorizedError") {
+      return { success: false, error: "Unauthorized" };
+    }
     return { success: false, error: "Gagal mengubah status" };
   }
 }
 
 export async function updateUmkmAction(id: string, formData: FormData) {
   try {
+    await requireAdmin();
+
     const data = {
       namaUmkm: formData.get("namaUmkm") as string,
       namaPemilik: formData.get("namaPemilik") as string,
@@ -57,6 +70,9 @@ export async function updateUmkmAction(id: string, formData: FormData) {
     revalidatePath(`/umkm/${id}`);
     return { success: true };
   } catch (error) {
+    if (error instanceof Error && error.name === "UnauthorizedError") {
+      return { success: false, error: "Unauthorized" };
+    }
     console.error(error);
     return { success: false, error: "Gagal mengubah UMKM" };
   }
@@ -64,12 +80,17 @@ export async function updateUmkmAction(id: string, formData: FormData) {
 
 export async function deleteUmkmAction(id: string) {
   try {
+    await requireAdmin();
+
     await umkmService.delete(id);
     revalidatePath("/dashboard/umkm");
     revalidatePath("/");
     revalidatePath("/umkm");
     return { success: true };
-  } catch {
+  } catch (error) {
+    if (error instanceof Error && error.name === "UnauthorizedError") {
+      return { success: false, error: "Unauthorized" };
+    }
     return { success: false, error: "Gagal menghapus UMKM" };
   }
 }

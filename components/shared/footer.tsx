@@ -37,7 +37,7 @@ export function Footer({
   kategoris,
   alamat = "Kelurahan Taman",
   telepon = "0812-3456-7890",
-  instagram = "@umkmtaman",
+  instagram = "@pkk_kelurahantaman",
   email = "info@umkmtaman.id",
 }: FooterProps) {
   const instagramUsername = instagram.replace("@", "");

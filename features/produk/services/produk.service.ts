@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { produkRepository } from "../repositories/produk.repository";
 import { produkSchema, type ProdukInput, type ProdukRawInput } from "../schemas/produk.schema";
@@ -32,7 +33,7 @@ export const produkService = {
     { tags: ["produk"] }
   ),
 
-  getBySlug: (slug: string) => produkRepository.findBySlug(slug),
+  getBySlug: cache((slug: string) => produkRepository.findBySlug(slug)),
 
   getById: (id: string) =>
     prisma.produk.findUnique({

@@ -62,23 +62,20 @@ export async function resolveMapsEmbedUrl(
   }
 
   // Link pendek: minta server mengikuti redirect untuk dapat URL aslinya
-    try {
+      try {
         const res = await fetch(rawUrl, {
-        redirect: "follow",
-        headers: {
+          redirect: "follow",
+          headers: {
             "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        },
-        next: { revalidate: 3600 },
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          },
+          next: { revalidate: 3600 },
         });
         const finalUrl = res.url;
-        console.log("[maps debug] rawUrl:", rawUrl);
-        console.log("[maps debug] finalUrl setelah redirect:", finalUrl);
         const embedUrl = toEmbedUrl(finalUrl);
-        console.log("[maps debug] embedUrl hasil convert:", embedUrl);
         return { url: embedUrl, error: embedUrl ? null : "invalid" };
-    } catch (err) {
-        console.log("[maps debug] fetch gagal:", err);
+      } catch (err) {
+        console.error("[maps] gagal resolve short link:", err);
         return { url: null, error: "unreachable" };
-    }
+      }
 }
