@@ -38,16 +38,8 @@ export default async function KontakPage() {
   return (
     <main className="min-h-screen bg-[#fffdf8]">
       <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6 sm:py-10">
-        {/* =====================================================
-            CONTACT INFORMATION
-        ====================================================== */}
-
         {hasContact ? (
           <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_8px_25px_-18px_rgba(15,23,42,0.3)]">
-            {/* =================================================
-                WHATSAPP
-            ================================================== */}
-
             {setting?.whatsapp && (
               <a
                 href={`https://wa.me/${setting.whatsapp.replace(/\D/g, "")}`}
@@ -68,8 +60,6 @@ export default async function KontakPage() {
                   sm:px-5
                 "
               >
-                {/* Icon */}
-
                 <div
                   className="
                     flex
@@ -85,8 +75,6 @@ export default async function KontakPage() {
                 >
                   <FaWhatsapp className="h-5 w-5" />
                 </div>
-
-                {/* Content */}
 
                 <div className="min-w-0 flex-1">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-400">
@@ -116,10 +104,6 @@ export default async function KontakPage() {
                 />
               </a>
             )}
-
-            {/* =================================================
-                ALAMAT
-            ================================================== */}
 
             {setting?.alamat && (
               <div
@@ -161,10 +145,6 @@ export default async function KontakPage() {
                 </div>
               </div>
             )}
-
-            {/* =================================================
-                EMAIL
-            ================================================== */}
 
             {setting?.email && (
               <a
@@ -225,10 +205,6 @@ export default async function KontakPage() {
               </a>
             )}
 
-            {/* =================================================
-                SUPPORT UMKM
-            ================================================== */}
-
             <div className="flex items-center gap-3.5 px-4 py-4 sm:px-5">
               <div
                 className="
@@ -266,10 +242,6 @@ export default async function KontakPage() {
             Informasi kontak belum tersedia.
           </div>
         )}
-
-        {/* =====================================================
-            GOOGLE MAPS
-        ====================================================== */}
 
         {setting?.maps && (
           <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_8px_25px_-18px_rgba(15,23,42,0.3)]">

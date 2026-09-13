@@ -4,7 +4,6 @@ import { Navbar } from "@/components/shared/navbar";
 import { BottomNav } from "@/components/shared/bottom-nav";
 import { Footer } from "@/components/shared/footer";
 
-
 export default async function PublicLayout({
   children,
 }: {

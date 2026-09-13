@@ -160,7 +160,6 @@ export function ProdukEditForm({
         />
       </div>
 
-      {/* Foto Utama */}
       <div>
         <label className="mb-1 block text-sm font-medium text-[#1F2937]">
           Foto Utama Saat Ini
@@ -232,7 +231,6 @@ export function ProdukEditForm({
         )}
       </div>
 
-      {/* Foto Tambahan */}
       <div>
         <label className="mb-1 block text-sm font-medium text-[#1F2937]">
           Foto Tambahan Saat Ini

@@ -11,7 +11,6 @@ export function ProductCard({ produk }: { produk: ProdukWithRelations }) {
       prefetch={false}
       className="card-hover group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)]"
     >
-      {/* Gambar — rasio persegi, konsisten di semua card */}
       <div className="relative aspect-square w-full overflow-hidden bg-brand-light">
         {produk.foto ? (
           <Image
@@ -31,14 +30,12 @@ export function ProductCard({ produk }: { produk: ProdukWithRelations }) {
         )}
       </div>
 
-      {/* Info — flex-1 biar tinggi konsisten walau nama produk panjang/pendek */}
       <div className="flex flex-1 flex-col gap-1 p-3">
         <p className="line-clamp-2 min-h-10 text-sm font-medium leading-tight text-gray-800">
           {produk.namaProduk}
         </p>
         <p className="truncate text-xs text-gray-500">{produk.umkm.namaUmkm}</p>
 
-        {/* Harga selalu di bawah, walau tinggi konten di atas beda */}
         <p className="mt-auto pt-1 text-base font-bold text-brand">
           Rp{produk.harga.toLocaleString("id-ID")}
         </p>

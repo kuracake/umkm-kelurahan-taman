@@ -116,7 +116,6 @@ export function ProdukForm({
         onSubmit={handleFormSubmit}
         className="relative flex flex-col gap-4 overflow-hidden rounded-lg border border-gray-100 bg-white p-6 shadow-sm"
       >
-        {/* Loading bar tipis di atas form */}
         {loading && (
           <div className="loading-bar-track">
             <div className="loading-bar-fill" />
@@ -196,7 +195,6 @@ export function ProdukForm({
           />
         </div>
 
-        {/* Foto Utama */}
         <div>
           <label className="mb-1 block text-sm font-medium text-[#1F2937]">
             Foto Utama
@@ -260,7 +258,6 @@ export function ProdukForm({
           )}
         </div>
 
-        {/* Foto Tambahan */}
         <div>
           <label className="mb-1 block text-sm font-medium text-[#1F2937]">
             Foto Tambahan (opsional, bisa pilih beberapa sekaligus)

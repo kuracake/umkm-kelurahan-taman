@@ -18,7 +18,6 @@ export default async function UmkmDetailPage({
 
   return (
     <div className="bg-white">
-      {/* Profil UMKM */}
       <section className="border-b border-gray-100 bg-brand-light/30 px-4 py-8">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center sm:flex-row sm:text-left">
           <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full ring-4 ring-white sm:h-24 sm:w-24">
@@ -67,10 +66,9 @@ export default async function UmkmDetailPage({
         </div>
       </section>
 
-      {/* Produk UMKM */}
       <section className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="mb-5 text-lg font-bold text-gray-900 sm:text-xl">
-          Produk dari {umkm.namaUmkm}
+         Produk dari {umkm.namaUmkm}
         </h2>
 
         {umkm.produk.length === 0 ? (

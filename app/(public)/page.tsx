@@ -1,4 +1,3 @@
-// page.tsx
 import Link from "next/link";
 import Image from "next/image";
 
@@ -52,7 +51,6 @@ export default async function HomePage() {
     return 0;
   });
 
-  // Structured data untuk membantu Google memahami identitas website
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -64,7 +62,6 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* WebSite Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -75,14 +72,12 @@ export default async function HomePage() {
       <div className="bg-white">
         <HeroIntro namaWebsite={namaWebsite} />
 
-        {/* Banner */}
         <div className="mx-auto max-w-6xl px-4 pt-6 sm:pt-8">
           <div className="overflow-hidden rounded-3xl shadow-[0_8px_28px_-8px_rgba(14,165,233,0.2)]">
             <HeroBanner banners={banners} />
           </div>
         </div>
 
-        {/* Kategori */}
         {kategorisSorted.length > 0 && (
           <section className="mx-auto max-w-6xl px-4 pb-2 pt-10 sm:pt-14">
             <h2 className="mb-6 text-lg font-bold tracking-tight text-gray-900 sm:text-xl">
@@ -110,12 +105,10 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* Pembatas */}
         <div className="mx-auto max-w-6xl px-4">
           <div className="border-t border-gray-100" />
         </div>
 
-        {/* Produk per Kategori */}
         <div className="*:border-b *:border-gray-50 [&>*:last-child]:border-b-0">
           {kategorisSorted.map((kategori) => {
             const produkKategori = produks.filter(
@@ -133,7 +126,6 @@ export default async function HomePage() {
           })}
         </div>
 
-        {/* UMKM */}
         {umkms.length > 0 && (
           <section className="relative mt-4 overflow-hidden bg-texture-mesh px-4 py-10 sm:py-14">
             <div className="relative z-10 mx-auto max-w-6xl">

@@ -136,10 +136,6 @@ export default async function ProdukDetailPage({
 
   return (
     <>
-      {/* =====================================================
-          STRUCTURED DATA
-      ====================================================== */}
-
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -147,13 +143,7 @@ export default async function ProdukDetailPage({
         }}
       />
 
-      {/* =====================================================
-          MAIN
-      ====================================================== */}
-
       <main className="mx-auto max-w-4xl px-4 py-10 sm:py-12">
-        {/* Back */}
-
         <Link
           href="/produk"
           className="
@@ -173,10 +163,6 @@ export default async function ProdukDetailPage({
           Kembali ke Produk
         </Link>
 
-        {/* ===================================================
-            PRODUCT DETAIL
-        ==================================================== */}
-
         <div
           className="
             grid
@@ -186,19 +172,13 @@ export default async function ProdukDetailPage({
             md:gap-10
           "
         >
-          {/* Product image */}
-
           <ProdukGallery
             namaProduk={produk.namaProduk}
             foto={produk.foto}
             fotoTambahan={produk.fotoTambahan}
           />
 
-          {/* Product information */}
-
           <div>
-            {/* Best seller */}
-
             {produk.bestSeller && (
               <span
                 className="
@@ -218,8 +198,6 @@ export default async function ProdukDetailPage({
               </span>
             )}
 
-            {/* Product name */}
-
             <h1
               className="
                 mt-2
@@ -233,8 +211,6 @@ export default async function ProdukDetailPage({
             >
               {produk.namaProduk}
             </h1>
-
-            {/* Seller + category */}
 
             <p className="mt-2 text-sm text-slate-500">
               Dijual oleh{" "}
@@ -253,8 +229,6 @@ export default async function ProdukDetailPage({
               {produk.kategori.nama}
             </p>
 
-            {/* Price */}
-
             <p
               className="
                 mt-5
@@ -266,8 +240,6 @@ export default async function ProdukDetailPage({
             >
               Rp{produk.harga.toLocaleString("id-ID")}
             </p>
-
-            {/* Description */}
 
             {produk.deskripsi && (
               <div className="mt-5">
@@ -288,17 +260,11 @@ export default async function ProdukDetailPage({
               </div>
             )}
 
-            {/* Order */}
-
             <div className="mt-6">
               <OrderSection produk={produk} />
             </div>
           </div>
         </div>
-
-        {/* ===================================================
-            RELATED PRODUCTS
-        ==================================================== */}
 
         {related.length > 0 && (
           <section className="mt-14 sm:mt-16">

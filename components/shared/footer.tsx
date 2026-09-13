@@ -44,10 +44,6 @@ export function Footer({
 
   return (
     <footer className="bg-brand-dark text-white">
-      {/* =========================================================
-          CTA
-      ========================================================== */}
-
       <div className="mx-auto max-w-7xl px-5 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pt-12">
         <div
           className="
@@ -73,8 +69,6 @@ export function Footer({
               sm:justify-between
             "
           >
-            {/* CTA text */}
-
             <div className="max-w-xl">
               <p className="text-xs font-semibold uppercase tracking-wide text-sky-200">
                 Bergabung bersama kami
@@ -89,8 +83,6 @@ export function Footer({
                 bersama {namaWebsite}.
               </p>
             </div>
-
-            {/* CTA button */}
 
             <Link
               href="/kontak"
@@ -124,10 +116,6 @@ export function Footer({
         </div>
       </div>
 
-      {/* =========================================================
-          MAIN FOOTER
-      ========================================================== */}
-
       <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
         <div
           className="
@@ -139,10 +127,6 @@ export function Footer({
             lg:gap-12
           "
         >
-          {/* =====================================================
-              BRAND
-          ====================================================== */}
-
           <div>
             <Link
               href="/"
@@ -155,8 +139,6 @@ export function Footer({
               Platform untuk mengenal dan menemukan produk UMKM lokal{" "}
               {alamat}.
             </p>
-
-            {/* Social */}
 
             <div className="mt-5 flex items-center gap-2.5">
               <a
@@ -236,10 +218,6 @@ export function Footer({
             </div>
           </div>
 
-          {/* =====================================================
-              NAVIGASI
-          ====================================================== */}
-
           <div>
             <h3 className="text-sm font-semibold text-white">
               Navigasi
@@ -275,10 +253,6 @@ export function Footer({
             </ul>
           </div>
 
-          {/* =====================================================
-              KATEGORI
-          ====================================================== */}
-
           <div>
             <h3 className="text-sm font-semibold text-white">
               Kategori
@@ -303,10 +277,6 @@ export function Footer({
               ))}
             </ul>
           </div>
-
-          {/* =====================================================
-              KONTAK
-          ====================================================== */}
 
           <div>
             <h3 className="text-sm font-semibold text-white">
@@ -379,10 +349,6 @@ export function Footer({
           </div>
         </div>
       </div>
-
-      {/* =========================================================
-          COPYRIGHT
-      ========================================================== */}
 
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-5 py-5 sm:px-8 lg:px-10">

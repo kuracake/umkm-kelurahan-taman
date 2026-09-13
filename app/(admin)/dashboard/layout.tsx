@@ -26,13 +26,11 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F8F9FA] lg:flex-row">
-      {/* Header — mobile only */}
       <div className="sticky top-0 z-20 flex items-center justify-between border-b border-gray-100 bg-white/80 px-4 py-3 backdrop-blur-md lg:hidden">
         <AdminMobileMenu />
         <LogoutButton variant="icon" />
       </div>
 
-      {/* Sidebar — desktop only */}
       <aside className="hidden w-64 flex-col border-r border-gray-200 bg-white lg:flex">
         <div className="border-b border-gray-200 p-6">
           <h2 className="text-lg font-bold text-brand">UMKM Taman</h2>
@@ -60,7 +58,6 @@ export default async function DashboardLayout({
         </div>
       </aside>
 
-      {/* Main content */}
       <main className="flex-1 p-4 pb-8 sm:p-8">{children}</main>
     </div>
   );
